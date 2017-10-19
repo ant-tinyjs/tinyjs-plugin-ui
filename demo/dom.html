@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tiny.ui.DOM</title>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="apple-touch-fullscreen"/>
+<meta content="telephone=no,email=no" name="format-detection"/>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<style>
+  html, body, p, div {
+    margin: 0;
+    padding: 0;
+  }
+
+  <!-- 外部样式不会影响 Tiny.ui.DOM -->
+  em {
+    color: #fff;
+    font-size: 70px;
+  }
+</style>
+</head>
+<body>
+
+<script src="https://gw.alipayobjects.com/as/g/tiny/tiny/1.1.5/tiny.js"></script>
+<script src="../dist/index.js"></script>
+
+<script type="text/javascript">
+  // 新建 App
+  var app = new Tiny.Application({
+    width: 400,
+    height: 400,
+    renderType: Tiny.RENDERER_TYPE.CANVAS,
+    fixSize: true,
+  });
+  var container = new Tiny.Container();
+
+  // 写一段 HTML
+  var html =
+    '<div style="font-size:40px;color:#fff;">' +
+    ' I<em> like </em><span style="color:gold;text-shadow:0 0 2px red;">coding</span><br/>我来自<b style="border:1px solid greenyellow;color:gold;text-shadow:1px 5px 5px orangered;">中国</b>' +
+    '</div>' +
+    '<div style="font-size:18px;margin:10px 0;">' +
+    ' <span style="background-color:pink;padding:5px 10px;color:white;border-radius:5px;margin-right:10px;">I am Tiny.js</span>' +
+    ' <span style="background-color:blueviolet;padding:5px 10px;color:white;border-radius:5px;">Hello, Tiny.js, I am 意绮</span>' +
+    '</div>';
+  // 用上面的那段 HTML 生成 DOM 显示对象
+  var dom = new Tiny.ui.DOM({
+    html: html,
+  });
+  // 将实例化的 dom 直接添加到显示容器中
+  container.addChild(dom);
+
+  // 再写一段 HTML，在传统 dom 开发中用 span 元素模拟按钮
+  var buttonHTML = '<span style="display:inline-block;margin-bottom:10px;color:gold;box-shadow:2px 5px 5px rgba(255,125,0,0.5);font-size:22px;border:2px solid gold;border-radius:20px;background-color:cadetblue;height:40px;line-height:40px;padding:0 25px;">Button</span>';
+  var button = new Tiny.ui.DOM({
+    html: buttonHTML,
+  });
+  // 因为我们要获取 button 的宽高，所以需要监听渲染情况
+  button.on('rendered', function () {
+    // 让按钮置于画布的正中
+    button.setPivot(button.width / 2, button.height / 2);
+    button.setPosition(Tiny.WIN_SIZE.width / 2, Tiny.WIN_SIZE.height / 2);
+    container.addChild(button);
+  });
+  // 设置 button 可交互的
+  button.setEventEnabled(true);
+  // 给 button 绑定点击事件
+  button.on('pointerdown', function () {
+    // 点击后，我们让 dom 做显示/隐藏的切换
+    dom.setVisible(!dom.getVisible());
+  });
+
+  app.run(container);
+</script>
+</body>
+</html>

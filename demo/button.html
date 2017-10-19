@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Button</title>
+  <meta content="yes" name="apple-mobile-web-app-capable"/>
+  <meta content="yes" name="apple-touch-fullscreen"/>
+  <meta content="telephone=no,email=no" name="format-detection"/>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+  <style>
+    html, body, p, div {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+<script src="https://gw.alipayobjects.com/as/g/tiny/tiny/1.1.5/tiny.js"></script>
+<script src="../dist/index.js"></script>
+
+<script type="text/javascript">
+  // 新建 App
+  var app = new Tiny.Application({
+    width: 400,
+    height: 400,
+    fixSize: true,
+  });
+  var container = new Tiny.Container();
+
+  var btn1 = new Tiny.ui.Button({
+    text: 'Hello, Tiny.js',
+    height: 100,
+    width: 200,
+    textPosition: 5,
+    textStyle: {
+      fill: 'white',
+    },
+    active: {
+      scale: Tiny.scale(1.2, 1.1),
+      callback: function () {
+        console.log('you tap btn1');
+      }
+    }
+  });
+  console.log(btn1.getBounds());
+  container.addChild(btn1);
+
+  var btn2 = new Tiny.ui.Button({
+    background: 'https://zos.alipayobjects.com/rmsportal/YJlpCuekebvKNap.png',
+    active: {
+      background: 'https://zos.alipayobjects.com/rmsportal/YlmEZzXVdAYauZFEjmrlaevYsBBHqQcx.png',
+      callback: function () {
+        console.log('you tap btn2');
+      }
+    }
+  });
+  btn2.setPositionY(100);
+  container.addChild(btn2);
+
+  var btn3 = new Tiny.ui.Button({
+    text: '支付宝',
+    background: Tiny.Sprite.fromImage('https://zos.alipayobjects.com/rmsportal/qfwEcpYykZOnnad.png'),
+    active: {
+      opacity: 0.5,
+      scale: 1.5,
+      callback: function () {
+        console.log('you tap btn3');
+      }
+    }
+  });
+  btn3.on('rendered', function () {
+    btn3.setPivot(btn3.width / 2, btn3.height / 2);
+    btn3.setPosition(Tiny.WIN_SIZE.width / 2, Tiny.WIN_SIZE.height / 2);
+    container.addChild(btn3);
+  });
+
+  app.run(container);
+</script>
+</body>
+</html>

@@ -12,22 +12,7 @@
 /**
  * Tiny.js UI plugin
  *
- * @class ui
+ * @namespace Tiny.ui
  */
-class ui {
-  /**
-   *
-   */
-  constructor() {
-
-  }
-
-  /**
-   *
-   */
-  init() {
-    console.log('The Tiny.js plugin write by yiqi\nname: tinyjs-plugin-ui\ndescription: Tiny.js UI plugin');
-  }
-}
-
-module.exports = ui;
+export {default as Button} from './Button';
+export {default as DOM} from './DOM';

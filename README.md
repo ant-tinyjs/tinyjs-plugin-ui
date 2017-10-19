@@ -30,6 +30,41 @@
 var ui = require('tinyjs-plugin-ui');
 // 或者
 // import ui from 'tinyjs-plugin-ui';
+
+var container = new Tiny.Container();
+var btn = new ui.Button({
+  text: 'Hello, Tiny.js',
+  height: 100,
+  width: 200,
+  textPosition: 5,
+  textStyle: {
+    fill: 'white',
+  },
+  active: {
+    scale: Tiny.scale(1.2, 1.1),
+    callback: function () {
+      console.log('you tap btn1');
+    }
+  }
+});
+container.addChild(btn);
+```
+
+##### 2. 使用 Tiny.ui.DOM
+
+```
+// 写一段 HTML
+var html =
+  '<div style="font-size:40px;color:#fff;">' +
+  ' I<em> am </em><span style="color:gold;text-shadow:0 0 2px red;">Tiny.js</span><br/>你好，<b style="color:gold;text-shadow:1px 5px 5px orangered;">中国</b>' +
+  '</div>';
+// 用上面的那段 HTML 生成 DOM 显示对象
+var dom = new Tiny.ui.DOM({
+ html: html,
+});
+var container = new Tiny.Container();
+// 将实例化的 dom 直接添加到显示容器中
+container.addChild(dom);
 ```
 
 ## 依赖
