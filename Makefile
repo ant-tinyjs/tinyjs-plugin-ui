@@ -6,7 +6,7 @@ gitpush:
 	@git remote set-url origin ${github}
 	@git add -A .
 	@git commit -am ${msg}
-	@git tag -d ${version} && git tag ${version}
+	@git tag ${version}
 	@git push origin master --tags
 
 qtdeploy:
