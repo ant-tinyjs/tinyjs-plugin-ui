@@ -52,6 +52,8 @@ container.addChild(btn);
 
 ##### 2. 使用 Tiny.ui.DOM
 
+> 注意：由于安全策略，ui.DOM 的渲染模式只支持 canvas，如果要用，需要将固定设置启动参数 renderType 为 Tiny.RENDERER_TYPE.CANVAS
+
 ```
 // 写一段 HTML
 var html =
