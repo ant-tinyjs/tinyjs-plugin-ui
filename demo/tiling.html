@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tiny.ui.DOM</title>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="apple-touch-fullscreen"/>
+<meta content="telephone=no,email=no" name="format-detection"/>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<style>
+  html, body, p, div {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+</head>
+<body>
+
+分别观察 label 和 button 在 Chrome 和 Safari 下的背景，点击按钮切换 tilingSprite 的层级后， label 和 button 背景正常，这就是与 tiling 插件同时使用时的规避措施（没有遮挡的情况）
+<script src="https://gw.alipayobjects.com/as/g/tiny/tiny/1.1.5/tiny.js"></script>
+<script src="https://a.alipayobjects.com/g/tiny-plugins/tinyjs-plugin-tiling/0.0.2/index.js"></script>
+<script src="../dist/index.js"></script>
+
+<script type="text/javascript">
+  // 新建 App
+  var app = new Tiny.Application({
+    width: 400,
+    height: 400,
+    renderType: Tiny.RENDERER_TYPE.CANVAS,
+    fixSize: true,
+  });
+  var container = new Tiny.Container();
+
+  // 创建一个 tilingSprite
+  var texture = Tiny.Texture.fromImage('https://zos.alipayobjects.com/rmsportal/qphRqMulIoaBUPQnfEBV.png');
+  var tilingSprite = new Tiny.tiling.TilingSprite(texture, 200, 200);
+  container.addChild(tilingSprite);
+
+  // 写一段 HTML
+  var html = '<span style="display:inline-block; padding:20px 0; height: 40px; border-radius:8px; '+
+    'width:340px; font-size: 30px; color: #fff; text-align:center; background:#ea5252;">双11我依旧心如止水</span>';
+  // 用上面的那段 HTML 生成 DOM 显示对象
+  var label = new Tiny.ui.DOM({
+    html: html,
+  });
+  // 将实例化的 label 直接添加到显示容器中
+  container.addChild(label);
+
+  // 再写一段 HTML，在传统 dom 开发中用 span 元素模拟按钮
+  var buttonHTML = '<span style="display:inline-block;margin-bottom:10px;color:gold;box-shadow:2px 5px 5px rgba(255,125,0,0.5);font-size:22px;border:2px solid gold;border-radius:20px;background-color:cadetblue;height:40px;line-height:40px;padding:0 25px;">切换层级</span>';
+  var button = new Tiny.ui.DOM({
+    html: buttonHTML,
+  });
+  container.addChild(button);
+  button.setPosition(10, 210);
+  // 设置 button 可交互的
+  button.setEventEnabled(true);
+  // 给 button 绑定点击事件
+  button.on('pointerdown', function () {
+    // 点击后，我们让 dom 切换 index
+    var index = container.getChildIndex(tilingSprite);
+    container.setChildIndex(tilingSprite, index === 0 ? 2 : 0);
+  });
+
+  app.run(container);
+</script>
+</body>
+</html>

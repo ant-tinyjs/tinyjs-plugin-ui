@@ -52,7 +52,11 @@ container.addChild(btn);
 
 ##### 2. 使用 Tiny.ui.DOM
 
-> 注意：由于安全策略，ui.DOM 的渲染模式只支持 canvas，如果要用，需要将固定设置启动参数 renderType 为 Tiny.RENDERER_TYPE.CANVAS
+注意：
+<ul>
+<li>由于安全策略，ui.DOM 的渲染模式只支持 canvas，如果要用，需要将固定设置启动参数 renderType 为 Tiny.RENDERER_TYPE.CANVAS</li>
+<li>由于浏览器渲染机制问题，在Safari下，<a href="http://tinyjs.net/#/plugins/tinyjs-plugin-tiling/docs">tinyjs-plugin-tiling</a>插件中的 TilingSprite 类会影响到 ui.DOM 的背景，可以通过添加顺序来规避（即后添加 TilingSprite 实例化显示对象），可以看看 demo 下的 "DOM & TilingSprite" 例子。</li>
+</ul>
 
 ```
 // 写一段 HTML
