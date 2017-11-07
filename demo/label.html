@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<script src="https://gw.alipayobjects.com/as/g/tiny/tiny/1.1.5/tiny.js"></script>
+<script src="../dist/index.js"></script>
+<script>
+  // 新建 App
+  var app = new Tiny.Application({
+    width: window.innerWidth,
+    height: window.innerHeight,
+    fixSize: true
+  });
+  var container = new Tiny.Container();
+  //根据宽度自动换行，高度自动裁剪
+  var label1 = new Tiny.ui.Label({
+    text: '我就是来测试一下的1111111111111111111111',
+    fill: '0xDC143C',
+    fontSize: 64,
+    width: 200,
+    height: 300
+  });
+  container.addChild(label1);
+
+  //不换行也不裁剪
+  var label2 = new Tiny.ui.Label({
+    text: '我就是来测试一下的1111111111111111111111',
+    fill: '0x0000CD',
+    fontSize: 64
+  });
+  label2.setPosition(0, 300);
+  container.addChild(label2);
+
+  //手动换行(text中加入\n，tiny会自动换行)
+  var label3 = new Tiny.ui.Label({
+    text: '我就是来测试一下的\n1111111111111111111111',
+    fill: '0xFF8C00',
+    fontSize: 64
+  });
+  label3.setPosition(0, 390);
+  container.addChild(label3);
+
+  app.run(container);
+</script>
+</body>
+</html>
