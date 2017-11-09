@@ -54,6 +54,7 @@ class Button extends InputBase {
     let thisScaleY;
     let activeBackgroundTexture;
 
+
     if (Tiny.isUndefined(background)) {
       background = this.setting.blankBase64;
     }
@@ -77,14 +78,16 @@ class Button extends InputBase {
     }
     this.addChild(text);
 
+    this.text = text;
+    this.background = background;
+    this.buttonMode = true;
+    //fix: 同时创建两个相同background的button时，button内text位置无法更新问题。（原因是texture对相同图片不会触发update）
+    this.updatePosition();
+
     background.texture.on('update', () => {
       this.updatePosition();
       self.emit('rendered');
     });
-
-    this.text = text;
-    this.background = background;
-    this.buttonMode = true;
 
     let leaveHandler = function () {
       if (activeBackgroundTexture) {
@@ -148,7 +151,6 @@ class Button extends InputBase {
     let textPos = textPosition || this.setting.textPosition;
     this.background.width = width || this.background.texture.width;
     this.background.height = height || this.background.texture.height;
-
     const offsetW = this.background.width - this.text.width;
     const offsetH = this.background.height - this.text.height;
 

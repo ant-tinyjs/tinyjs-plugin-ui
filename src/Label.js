@@ -8,7 +8,7 @@ import InputBase from './InputBase';
  * var container = new Tiny.Container();
  * var label = new Tiny.ui.Label({
  *   text: 'tiny.js',
- *   color: '0xFF8C00',
+ *   fill: '0xFF8C00',
  *   fontSize: 30,
  * });
  * container.addChild(label);
@@ -40,7 +40,7 @@ class Label extends InputBase {
   }
 
   render = () => {
-    let {
+    const {
       text,
       width,
       height,
@@ -51,7 +51,7 @@ class Label extends InputBase {
       ...others
     } = this.settings;
 
-    let opt = {
+    const opt = {
       wordWrap: width && true || false,
       breakWords: width && true || false,
       wordWrapWidth: width,
@@ -61,7 +61,7 @@ class Label extends InputBase {
 
     //绘制遮罩，超出指定高度时裁剪label
     if(height && width) {
-      let mask = new Tiny.Graphics();
+      const mask = new Tiny.Graphics();
       mask.lineStyle(0);
       mask.beginFill(0xFFFFFF);
       mask.drawRect(0, 0, width, height);

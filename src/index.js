@@ -17,3 +17,4 @@
 export {default as Button} from './Button';
 export {default as DOM} from './DOM';
 export {default as Label} from './Label';
+export {default as Alert} from './Alert';
