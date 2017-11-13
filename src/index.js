@@ -19,3 +19,4 @@ export {default as DOM} from './DOM';
 export {default as Label} from './Label';
 export {default as Alert} from './Alert';
 export {default as NinePatch} from './NinePatch';
+export {default as Toast} from './Toast';
