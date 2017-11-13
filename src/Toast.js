@@ -71,7 +71,6 @@ class Toast extends InputBase {
     const {width, height} = this.getLocalBounds();
     const finalHeight =  height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING;
     let finalWidth = this.PADDING;
-    console.log(width, this.MAX_WIDTH, this.MIN_WIDTH);
     if(width > this.MAX_WIDTH) {
       finalWidth += this.MAX_WIDTH;
     } else if(width < this.MIN_WIDTH) {
