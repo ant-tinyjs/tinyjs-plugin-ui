@@ -1,6 +1,7 @@
 import InputBase from './InputBase';
 import Label from './Label';
 import Button from './Button';
+import NinePatch from './NinePatch';
 
 /**
  * Alert 组件
@@ -64,17 +65,17 @@ class Alert extends InputBase {
   };
 
   drawRoundRect = () => {
-    const fixedPadding = 15 * this.DPI;
     const {height} = this.getLocalBounds();
-    const graphics = new Tiny.Graphics();
     const finalHeight =  height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING;
-    graphics.lineStyle(0);
-    graphics.beginFill('0xffffff');
-    graphics.drawRoundedRect(0, 0, this.MAX_WIDTH, finalHeight);
-    graphics.endFill();
-    this.addChild(graphics);
+    const sprite = new NinePatch(
+      Tiny.Sprite.fromImage(this.setting.roundRectBase64).texture,
+      this.MAX_WIDTH,
+      finalHeight,
+      [10, 10, 1, 1]
+    );
+    this.addChild(sprite);
 
-    return graphics;
+    return sprite;
   };
 
   drawButton = () => {
@@ -99,7 +100,7 @@ class Alert extends InputBase {
   };
 
   updatePosition = () => {
-    const {width, height} = this.roundRect.getLocalBounds();
+    const {width, height} = this.roundRect;
     const win = Tiny.WIN_SIZE;
     this.btn.setPosition(this.MAX_WIDTH - this.btn.width, height - this.btn.height);
     this.label.setPosition(this.MAX_WIDTH / 2 - this.label.width / 2, height / 2 - this.label.height / 2 - 5 * this.DPI);

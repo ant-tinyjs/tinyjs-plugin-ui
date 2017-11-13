@@ -81,8 +81,10 @@ class Button extends InputBase {
     this.text = text;
     this.background = background;
     this.buttonMode = true;
+
     //fix: 同时创建两个相同background的button时，button内text位置无法更新问题。（原因是texture对相同图片不会触发update）
     this.updatePosition();
+    //background.texture.emit('update');
 
     background.texture.on('update', () => {
       this.updatePosition();

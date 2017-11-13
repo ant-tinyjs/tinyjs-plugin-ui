@@ -24,16 +24,12 @@
     dpi: window.devicePixelRatio
   });
   var container = new Tiny.Container();
-  var tinyAlert = new Tiny.ui.Alert(container, 'close');
+  var tinyAlert = new Tiny.ui.Alert(container, '点我');
   tinyAlert.alert('11111', function() {
-    alert(1);
-  });
-
-  setTimeout(function() {
     tinyAlert.alert('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', function() {
-      alert(2);
+      alert('没了哦~');
     });
-  }, 5000);
+  });
   app.run(container);
 </script>
 </body>
