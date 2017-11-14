@@ -74,7 +74,7 @@ class Button extends InputBase {
     if (Tiny.isString(activeBackground)) {
       const baseTexture = Tiny.BaseTexture.from(activeBackground);
       activeBackgroundTexture = new Tiny.Texture(baseTexture);
-      Tiny.baseTexture.removeFromCache(baseTexture);
+      Tiny.BaseTexture.removeFromCache(baseTexture);
     }
 
     this.addChild(background);
@@ -84,14 +84,14 @@ class Button extends InputBase {
     }
     this.addChild(text);
 
-    this.text = text;
-    this.background = background;
-    this.buttonMode = true;
-
     background.texture.on('update', () => {
       this.updatePosition();
       self.emit('rendered');
     });
+
+    this.text = text;
+    this.background = background;
+    this.buttonMode = true;
 
     let leaveHandler = function () {
       if (activeBackgroundTexture) {
