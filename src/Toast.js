@@ -18,20 +18,20 @@ import NinePatch from './NinePatch';
 
 class Toast extends InputBase {
   /**
-   * @param {Tiny.Container}      mainContainer            - Application的主容器，相当于舞台的根容器
-   * @param {Number}              autoHideTime             - 自动隐藏时间，单位为毫秒，不传默认为2000ms
+   * @param {Tiny.Application}    app            - Tiny.Application的实例
+   * @param {Number}              autoHideTime   - 自动隐藏时间，单位为毫秒，不传默认为2000ms
    */
-  constructor(mainContainer, autoHideTime) {
+  constructor(app, autoHideTime) {
     super();
 
-    this.mainContainer = mainContainer;
+    this.stage = app && app.stage || null;
     this.autoHideTime = autoHideTime || 2000;
 
     //constant
-    this.DPI = window.devicePixelRatio;
+    this.DPI = Tiny.config.dpi;
     this.PADDING = 20 * this.DPI;
     this.CONTENT_FONTSIZE = 16 * this.DPI;
-    this.MIN_HEIGHT = 25 * this.DPI;
+    this.MIN_HEIGHT = 20 * this.DPI;
     this.MAX_WIDTH = Tiny.WIN_SIZE.width * 0.4;
     this.MIN_WIDTH = Tiny.WIN_SIZE.width * 0.3;
 
@@ -40,7 +40,7 @@ class Toast extends InputBase {
 
   bindEvent = () => {
     this.on('pointerdown', e => {
-      this.mainContainer.removeChild(this);
+      this.stage && this.stage.removeChild(this);
     });
   };
 
@@ -91,7 +91,7 @@ class Toast extends InputBase {
   };
 
   updatePosition = () => {
-    const {width, height} = this.getLocalBounds();
+    const {width, height} = this.roundRect;
     const win = Tiny.WIN_SIZE;
     this.label.setPosition(width / 2 - this.label.width / 2, height / 2 - this.label.height / 2);
     this.setChildIndex(this.label, 1);
@@ -105,16 +105,16 @@ class Toast extends InputBase {
    * @param {string}         text           - 弹出的文案
    */
   show = (text) => {
-    if(this.mainContainer) {
-      this.mainContainer.removeChild(this);
+    if(this.stage) {
+      this.stage.removeChild(this);
       this.render(text);
-      this.mainContainer.addChild(this);
+      this.stage.addChild(this);
 
       Tiny.ticker.shared.countDown({
         duration: this.autoHideTime,
         times: 1,
         complete: () => {
-          this.mainContainer.children.length && this.mainContainer.removeChild(this);
+          this.stage.children.length && this.stage.removeChild(this);
         }
       });
     }

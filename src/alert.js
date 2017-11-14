@@ -20,17 +20,17 @@ import NinePatch from './NinePatch';
 
 class Alert extends InputBase {
   /**
-   * @param {Tiny.Container}      mainContainer            - Application的主容器，相当于舞台的根容器
-   * @param {string}              buttonText               - 弹框的按钮文案，不传则为’关闭‘
+   * @param {Tiny.Application}    app            - Tiny.Application的实例
+   * @param {string}              buttonText     - 弹框的按钮文案，不传则为’关闭‘
    */
-  constructor(mainContainer, buttonText) {
+  constructor(app, buttonText) {
     super();
 
-    this.mainContainer = mainContainer;
-    this.buttonText = buttonText;
+    this.stage = app && app.stage || null;
+    this.buttonText = buttonText || '关闭';
 
     //constant
-    this.DPI = window.devicePixelRatio;
+    this.DPI = Tiny.config.dpi;
     this.PADDING = 40 * this.DPI;
     this.CONTENT_FONTSIZE = 16 * this.DPI;
     this.BTN_FONTSIZE = 14 * this.DPI;
@@ -80,7 +80,7 @@ class Alert extends InputBase {
 
   drawButton = () => {
     const btn = new Button({
-      text: this.buttonText || '关闭',
+      text: this.buttonText,
       textStyle: {
         fill: '0x108EE9',
         fontSize: this.BTN_FONTSIZE
@@ -88,7 +88,7 @@ class Alert extends InputBase {
       active: {
         opacity: .5,
         callback: () => {
-          this.parent.removeChild(this);
+          this.stage && this.stage.removeChild(this);
           this.callback && this.callback();
         }
       }
@@ -116,10 +116,10 @@ class Alert extends InputBase {
    * @param {function}       callback       - 点击弹出框按钮时的回调函数
    */
   alert = (text, callback) => {
-    if(this.mainContainer) {
-      this.mainContainer.removeChild(this);
+    if(this.stage) {
+      this.stage.removeChild(this);
       this.render(text);
-      this.mainContainer.addChild(this);
+      this.stage.addChild(this);
       this.callback = callback;
     }
   }

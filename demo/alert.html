@@ -18,19 +18,16 @@
 <script>
   // 新建 App
   var app = new Tiny.Application({
-    width: window.innerWidth,
-    height: window.innerHeight,
-    fixSize: true,
-    dpi: window.devicePixelRatio
+    dpi: 2
   });
   var container = new Tiny.Container();
-  var tinyAlert = new Tiny.ui.Alert(container, '点我');
+  app.run(container);
+  var tinyAlert = new Tiny.ui.Alert(app, '点我');
   tinyAlert.alert('11111', function() {
     tinyAlert.alert('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', function() {
       alert('没了哦~');
     });
   });
-  app.run(container);
 </script>
 </body>
 </html>

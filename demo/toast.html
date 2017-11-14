@@ -18,17 +18,14 @@
 <script>
   // 新建 App
   var app = new Tiny.Application({
-    width: window.innerWidth,
-    height: window.innerHeight,
-    fixSize: true,
-    dpi: window.devicePixelRatio,
+    dpi: 2,
     renderOptions: {
       backgroundColor: 0x2a3145 // 画布背景色
     }
   });
   var container = new Tiny.Container();
-  var toast = new Tiny.ui.Toast(container, 5000);
   app.run(container);
+  var toast = new Tiny.ui.Toast(app, 5000);
   toast.show('请求成功!');
 </script>
 </body>

@@ -60,15 +60,21 @@ class Button extends InputBase {
     }
 
     if (Tiny.isString(background)) {
-      background = Tiny.Sprite.from(background);
+      const baseTexture = Tiny.BaseTexture.from(background);
+      const texture = new Tiny.Texture(baseTexture);
+      background = new Tiny.Sprite(texture);
+      Tiny.BaseTexture.removeFromCache(baseTexture);
     }
+
     backgroundTexture = background.texture;
     thisOpacity = this.getOpacity();
     thisScaleX = this.getScale().x;
     thisScaleY = this.getScale().y;
 
     if (Tiny.isString(activeBackground)) {
-      activeBackgroundTexture = Tiny.Texture.from(activeBackground);
+      const baseTexture = Tiny.BaseTexture.from(activeBackground);
+      activeBackgroundTexture = new Tiny.Texture(baseTexture);
+      Tiny.baseTexture.removeFromCache(baseTexture);
     }
 
     this.addChild(background);
@@ -81,10 +87,6 @@ class Button extends InputBase {
     this.text = text;
     this.background = background;
     this.buttonMode = true;
-
-    //fix: 同时创建两个相同background的button时，button内text位置无法更新问题。（原因是texture对相同图片不会触发update）
-    this.updatePosition();
-    //background.texture.emit('update');
 
     background.texture.on('update', () => {
       this.updatePosition();
