@@ -64,10 +64,16 @@ var html =
   '<div style="font-size:40px;color:#fff;">' +
   ' I<em> am </em><span style="color:gold;text-shadow:0 0 2px red;">Tiny.js</span><br/>你好，<b style="color:gold;text-shadow:1px 5px 5px orangered;">中国</b>' +
   '</div>';
-// 用上面的那段 HTML 生成 DOM 显示对象
-var dom = new Tiny.ui.DOM({
- html: html,
-});
+var dom;
+try {
+  // 用上面的那段 HTML 生成 DOM 显示对象
+  dom = new Tiny.ui.DOM({
+   html: html,
+  });
+}catch(e){
+  // 不支持的设备会报错，此时降级使用普通文本或使用图片
+  dom = new Tiny.Text('Tiny.js\n你好，中国');
+}
 var container = new Tiny.Container();
 // 将实例化的 dom 直接添加到显示容器中
 container.addChild(dom);
