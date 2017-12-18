@@ -47,13 +47,8 @@ class Button extends InputBase {
     const active = this.setting.active;
     let text = this.setting.text || '';
     let background = this.setting.background;
-    let activeBackground = active.background;
-    let backgroundTexture;
-    let thisOpacity;
-    let thisScaleX;
-    let thisScaleY;
+    const activeBackground = active.background;
     let activeBackgroundTexture;
-
 
     if (Tiny.isUndefined(background)) {
       background = this.setting.blankBase64;
@@ -66,10 +61,10 @@ class Button extends InputBase {
       Tiny.BaseTexture.removeFromCache(baseTexture);
     }
 
-    backgroundTexture = background.texture;
-    thisOpacity = this.getOpacity();
-    thisScaleX = this.getScale().x;
-    thisScaleY = this.getScale().y;
+    const backgroundTexture = background.texture;
+    const thisOpacity = this.getOpacity();
+    const thisScaleX = this.getScale().x;
+    const thisScaleY = this.getScale().y;
 
     if (Tiny.isString(activeBackground)) {
       const baseTexture = Tiny.BaseTexture.from(activeBackground);
@@ -93,7 +88,7 @@ class Button extends InputBase {
     this.background = background;
     this.buttonMode = true;
 
-    let leaveHandler = function () {
+    const leaveHandler = function () {
       if (activeBackgroundTexture) {
         background.texture = backgroundTexture;
       }
@@ -104,7 +99,7 @@ class Button extends InputBase {
         self.setScale(thisScaleX, thisScaleY);
       }
     };
-    let clickHandler = function (e) {
+    const clickHandler = function (e) {
       if (Tiny.isFunction(active.callback)) {
         active.callback(e);
       }
@@ -150,11 +145,12 @@ class Button extends InputBase {
    */
   updatePosition(textPosition) {
     let x, y;
-    let width = ~~this.setting.width;
-    let height = ~~this.setting.height;
-    let textPos = textPosition || this.setting.textPosition;
+    const width = ~~this.setting.width;
+    const height = ~~this.setting.height;
+    const textPos = textPosition || this.setting.textPosition;
     this.background.width = width || this.background.texture.width;
     this.background.height = height || this.background.texture.height;
+
     const offsetW = this.background.width - this.text.width;
     const offsetH = this.background.height - this.text.height;
 

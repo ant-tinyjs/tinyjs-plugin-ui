@@ -10,7 +10,7 @@ import NinePatch from './NinePatch';
  *
  * var tinyAlert = new Tiny.ui.Alert(mainContainer, buttonText);
  * tinyAlert.alert('123', function() {
- *    your code here
+ *    // your code here
  * });
  *
  * @class
@@ -38,7 +38,7 @@ class Alert extends InputBase {
     this.MAX_WIDTH = Tiny.WIN_SIZE.width * 0.8;
   }
 
-  render = (text) => {
+  render(text) {
     this.removeChildren(0, this.children.length);
     //渲染label
     this.label = this.drawLabel(text);
@@ -52,21 +52,21 @@ class Alert extends InputBase {
     this.updatePosition();
   };
 
-  drawLabel = (text) => {
+  drawLabel(text) {
     const label = new Label({
       text,
       fill: '0x000000',
       fontSize: this.CONTENT_FONTSIZE,
-      width: this.MAX_WIDTH - this.PADDING
+      width: this.MAX_WIDTH - this.PADDING,
     });
     this.addChild(label);
 
     return label;
   };
 
-  drawRoundRect = () => {
+  drawRoundRect() {
     const {height} = this.getLocalBounds();
-    const finalHeight =  height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING;
+    const finalHeight = height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING;
     const sprite = new NinePatch(
       Tiny.Sprite.fromImage(this.setting.roundRectBase64_white).texture,
       this.MAX_WIDTH,
@@ -78,20 +78,20 @@ class Alert extends InputBase {
     return sprite;
   };
 
-  drawButton = () => {
+  drawButton() {
     const btn = new Button({
       text: this.buttonText,
       textStyle: {
         fill: '0x108EE9',
-        fontSize: this.BTN_FONTSIZE
+        fontSize: this.BTN_FONTSIZE,
       },
       active: {
-        opacity: .5,
+        opacity: 0.5,
         callback: () => {
           this.stage && this.stage.removeChild(this);
           this.callback && this.callback();
-        }
-      }
+        },
+      },
     });
 
     this.addChild(btn);
@@ -99,13 +99,13 @@ class Alert extends InputBase {
     return btn;
   };
 
-  updatePosition = () => {
+  updatePosition() {
     const {width, height} = this.roundRect;
     const win = Tiny.WIN_SIZE;
     this.btn.setPosition(this.MAX_WIDTH - this.btn.width, height - this.btn.height);
     this.label.setPosition(this.MAX_WIDTH / 2 - this.label.width / 2, height / 2 - this.label.height / 2 - 5 * this.DPI);
     this.setChildIndex(this.label, 1);
-    this.setPosition(win.width / 2 - width / 2, win.height / 2 - height / 2)
+    this.setPosition(win.width / 2 - width / 2, win.height / 2 - height / 2);
   };
 
   /**
@@ -115,8 +115,8 @@ class Alert extends InputBase {
    * @param {string}         text           - 弹出的文案
    * @param {function}       callback       - 点击弹出框按钮时的回调函数
    */
-  alert = (text, callback) => {
-    if(this.stage) {
+  alert(text, callback) {
+    if (this.stage) {
       this.stage.removeChild(this);
       this.render(text);
       this.stage.addChild(this);

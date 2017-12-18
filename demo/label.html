@@ -23,30 +23,30 @@
     fixSize: true
   });
   var container = new Tiny.Container();
-  //根据宽度自动换行，高度自动裁剪
+  // 根据宽度自动换行，高度自动裁剪
   var label1 = new Tiny.ui.Label({
-    text: '我就是来测试一下的1111111111111111111111',
+    text: '根据宽度自动换行，高度自动裁剪，不信你看：我就是来测试一下的1111111111111111111111',
     fill: '0xDC143C',
     fontSize: 16,
-    width: 100,
+    width: 320,
     height: 30
   });
   container.addChild(label1);
 
-  //不换行也不裁剪
+  // 不换行也不裁剪
   var label2 = new Tiny.ui.Label({
-    text: '我就是来测试一下的1111111111111111111111',
+    text: '不换行也不裁剪，不信你看：我就是来测试一下的1111111111111111111111',
     fill: '0x0000CD',
     fontSize: 20
   });
   label2.setPosition(0, 50);
   container.addChild(label2);
 
-  //手动换行(text中加入\n，tiny会自动换行)
+  // 手动换行(text 中加入\n，Label 会自动换行)
   var label3 = new Tiny.ui.Label({
-    text: '我就是来测试一下的\n1111111111111111111111',
+    text: '手动换行(text 中加入\\n，Label 会自动换行)不信你看：\n我就是来测试一下的\n1111111111111111111111',
     fill: '0xFF8C00',
-    fontSize: 30
+    fontSize: 14
   });
   label3.setPosition(0, 90);
   container.addChild(label3);

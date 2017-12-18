@@ -31,7 +31,7 @@ class Label extends InputBase {
     this.defaultSetting = {
       text: '',
       width: 0,
-      height: 0
+      height: 0,
     };
 
     this.settings = Object.assign({}, this.defaultSetting, options || {});
@@ -39,15 +39,15 @@ class Label extends InputBase {
     this.render();
   }
 
-  render = () => {
+  render() {
     const {
       text,
       width,
       height,
       // 排除用户自定义截断，导致样式不正确
-      wordWrap,
-      breakWords,
-      wordWrapWidth,
+      wordWrap, // eslint-disable-line
+      breakWords, // eslint-disable-line
+      wordWrapWidth, // eslint-disable-line
       ...others
     } = this.settings;
 
@@ -55,12 +55,12 @@ class Label extends InputBase {
       wordWrap: width && true || false,
       breakWords: width && true || false,
       wordWrapWidth: width,
-      ...others
+      ...others,
     };
     this.text = new Tiny.Text(text, opt);
 
     //绘制遮罩，超出指定高度时裁剪label
-    if(height && width) {
+    if (height && width) {
       const mask = new Tiny.Graphics();
       mask.lineStyle(0);
       mask.beginFill(0xFFFFFF);
