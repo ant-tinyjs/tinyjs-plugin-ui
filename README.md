@@ -4,7 +4,7 @@
 
 ## 查看demo
 
-`demo/index.html`
+http://tinyjs.net/#/plugins/tinyjs-plugin-ui/demo
 
 ## 引用方法
 
@@ -14,8 +14,8 @@
 
 - 也可以直接引用线上cdn地址，注意要使用最新的版本号，例如：
 
-  - https://a.alipayobjects.com/g/tiny-plugins/tinyjs-plugin-ui/0.0.1/index.js
-  - https://a.alipayobjects.com/g/tiny-plugins/tinyjs-plugin-ui/0.0.1/index.debug.js
+  - https://gw.alipayobjects.com/as/g/tiny-plugins/tinyjs-plugin-ui/0.0.2/index.js
+  - https://gw.alipayobjects.com/as/g/tiny-plugins/tinyjs-plugin-ui/0.0.2/index.debug.js
 
 ## 起步
 首先当然是要引入，推荐`NPM`方式，当然你也可以使用`CDN`或下载独立版本，先从几个例子入手吧！
@@ -64,10 +64,16 @@ var html =
   '<div style="font-size:40px;color:#fff;">' +
   ' I<em> am </em><span style="color:gold;text-shadow:0 0 2px red;">Tiny.js</span><br/>你好，<b style="color:gold;text-shadow:1px 5px 5px orangered;">中国</b>' +
   '</div>';
-// 用上面的那段 HTML 生成 DOM 显示对象
-var dom = new Tiny.ui.DOM({
- html: html,
-});
+var dom;
+try {
+  // 用上面的那段 HTML 生成 DOM 显示对象
+  dom = new Tiny.ui.DOM({
+   html: html,
+  });
+}catch(e){
+  // 不支持的设备会报错，此时降级使用普通文本或使用图片
+  dom = new Tiny.Text('Tiny.js\n你好，中国');
+}
 var container = new Tiny.Container();
 // 将实例化的 dom 直接添加到显示容器中
 container.addChild(dom);
@@ -75,3 +81,7 @@ container.addChild(dom);
 
 ## 依赖
 - `Tiny.js`: [Link](http://tinyjs.net/#/docs/api)
+
+## API文档
+
+http://tinyjs.net/#/plugins/tinyjs-plugin-ui/docs
