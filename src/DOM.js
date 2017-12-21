@@ -60,8 +60,8 @@ class DOM extends UIBase {
   _parseHTML(html, isUpdate) {
     const self = this;
     const htmlHeightWidth = getHTMLWH(html);
-    let width = ~~this.setting.width || htmlHeightWidth.width;
-    let height = ~~this.setting.height || htmlHeightWidth.height;
+    const width = ~~this.setting.width || htmlHeightWidth.width;
+    const height = ~~this.setting.height || htmlHeightWidth.height;
     const data = `
     <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
       <foreignObject width="100%" height="100%">
