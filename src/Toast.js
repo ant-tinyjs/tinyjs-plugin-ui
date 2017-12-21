@@ -13,6 +13,7 @@ import NinePatch from './NinePatch';
  * @class
  * @extends Tiny.ui.InputBase
  * @memberof Tiny.ui
+ * @version 0.1.0
  */
 
 class Toast extends InputBase {

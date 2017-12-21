@@ -14,8 +14,8 @@ http://tinyjs.net/#/plugins/tinyjs-plugin-ui/demo
 
 - 也可以直接引用线上cdn地址，注意要使用最新的版本号，例如：
 
-  - https://gw.alipayobjects.com/as/g/tiny-plugins/tinyjs-plugin-ui/0.0.2/index.js
-  - https://gw.alipayobjects.com/as/g/tiny-plugins/tinyjs-plugin-ui/0.0.2/index.debug.js
+  - https://gw.alipayobjects.com/as/g/tiny-plugins/tinyjs-plugin-ui/0.1.0/index.js
+  - https://gw.alipayobjects.com/as/g/tiny-plugins/tinyjs-plugin-ui/0.1.0/index.debug.js
 
 ## 起步
 首先当然是要引入，推荐`NPM`方式，当然你也可以使用`CDN`或下载独立版本，先从几个例子入手吧！
@@ -53,10 +53,9 @@ container.addChild(btn);
 ##### 2. 使用 Tiny.ui.DOM
 
 注意：
-<ul>
-<li>由于安全策略，ui.DOM 的渲染模式只支持 canvas，如果要用，需要将固定设置启动参数 `renderType` 为 `Tiny.RENDERER_TYPE.CANVAS`</li>
-<li>由于浏览器渲染机制问题，在Safari下，<a href="http://tinyjs.net/#/plugins/tinyjs-plugin-tiling/docs">tinyjs-plugin-tiling</a>插件中的 `TilingSprite` 类会影响到 ui.DOM 的背景，可以通过添加顺序来规避（即后添加 `TilingSprite` 实例化显示对象），可以看看 demo 下的 "DOM & TilingSprite" 例子。</li>
-</ul>
+
+- 由于安全策略，ui.DOM 的渲染模式只支持 canvas，如果要用，需要将固定设置启动参数 `renderType` 为 `Tiny.RENDERER_TYPE.CANVAS`
+- 由于浏览器渲染机制问题，在Safari下，[tinyjs-plugin-tiling](http://tinyjs.net/#/plugins/tinyjs-plugin-tiling/docs) 插件中的 `TilingSprite` 类会影响到 ui.DOM 的背景，可以通过添加顺序来规避（即后添加 `TilingSprite` 实例化显示对象），可以看看 demo 下的 "DOM & TilingSprite" 例子。
 
 ```
 // 写一段 HTML

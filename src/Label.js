@@ -16,6 +16,7 @@ import InputBase from './InputBase';
  * @class
  * @extends Tiny.ui.InputBase
  * @memberof Tiny.ui
+ * @version 0.1.0
  */
 class Label extends InputBase {
   /**

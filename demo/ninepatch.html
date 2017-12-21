@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>NinePatch</title>
+  <meta content="yes" name="apple-mobile-web-app-capable"/>
+  <meta content="yes" name="apple-touch-fullscreen"/>
+  <meta content="telephone=no,email=no" name="format-detection"/>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+  <style>
+    html, body, p, div {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+<script src="https://gw.alipayobjects.com/as/g/tiny/tiny/1.1.5/tiny.js"></script>
+<script src="../dist/index.js"></script>
+
+<script type="text/javascript">
+  // 新建 App
+  var app = new Tiny.Application({
+    showFPS: true,
+    width: 400,
+    height: 400,
+    fixSize: true,
+    renderType: 2
+  });
+  var container = new Tiny.Container();
+
+  var np = new Tiny.ui.NinePatch(
+    Tiny.Texture.fromImage('https://gw.alipayobjects.com/zos/rmsportal/cdkDQmJoLcahbqyaewGG.png'),
+    null,
+    null,
+    [30, 30, 40, 40]
+  );
+  //  var np = Tiny.Sprite.fromImage('https://gw.alipayobjects.com/zos/rmsportal/cdkDQmJoLcahbqyaewGG.png')
+  var rendered = true;
+  var yoyo = false;
+
+  np.setPosition(10, 10);
+  np.on('rendered', function () {
+    rendered = true;
+  });
+  container.addChild(np);
+
+  app.onUpdate(function () {
+    if (!rendered) {
+      return;
+    }
+    if (np.height >= 200) {
+      yoyo = true;
+    } else if (np.height <= 100) {
+      yoyo = false;
+    }
+
+    if (yoyo) {
+      np.resize(null, np.height - 1);
+    } else {
+      np.resize(null, np.height + 1);
+    }
+  });
+
+  var np2 = new Tiny.ui.NinePatch(
+    Tiny.Texture.fromImage('https://gw.alipayobjects.com/zos/rmsportal/ipdnmCVbXeVBPprGCYlW.png'),
+    200,
+    300,
+    [30, 30, 100, 100]
+  );
+  np2.setPosition(120, 10);
+  np2.on('rendered', function () {
+    // 为直观感受，给每个区块加上边框
+    np2.children.forEach(function (item) {
+      var bound = item.getBounds();
+      var rectangle = new Tiny.Graphics();
+      rectangle.lineStyle(1, 0xFF3300, 1);
+      rectangle.drawRect(bound.x, bound.y, bound.width, bound.height);
+      rectangle.endFill();
+      container.addChild(rectangle);
+    });
+  });
+  container.addChild(np2);
+
+  app.run(container);
+</script>
+</body>
+</html>
