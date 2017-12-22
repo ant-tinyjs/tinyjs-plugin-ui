@@ -56,7 +56,7 @@ class Alert extends InputBase {
   drawLabel(text) {
     const label = new Label({
       text,
-      fill: '0x000000',
+      fill: '0x333333',
       fontSize: this.CONTENT_FONTSIZE,
       width: this.MAX_WIDTH - this.PADDING,
     });
@@ -68,12 +68,15 @@ class Alert extends InputBase {
   drawRoundRect() {
     const {height} = this.getLocalBounds();
     const finalHeight = height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING;
+    const baseTexture = Tiny.BaseTexture.from(this.setting.roundRectBase64_white);
+    const texture = new Tiny.Texture(baseTexture);
     const sprite = new NinePatch(
-      Tiny.Sprite.fromImage(this.setting.roundRectBase64_white).texture,
+      texture,
       this.MAX_WIDTH,
       finalHeight,
       [10, 10, 1, 1]
     );
+    Tiny.BaseTexture.removeFromCache(baseTexture);
     this.addChild(sprite);
 
     return sprite;
