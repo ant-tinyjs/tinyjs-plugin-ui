@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<script src="https://gw.alipayobjects.com/as/g/tiny/tiny/1.1.5/tiny.js"></script>
+<script src="https://gw.alipayobjects.com/as/g/tiny/tiny/1.1.7/tiny.js"></script>
 <script src="../dist/index.js"></script>
 
 <script type="text/javascript">
@@ -35,7 +35,7 @@
     Tiny.Texture.fromImage('https://gw.alipayobjects.com/zos/rmsportal/cdkDQmJoLcahbqyaewGG.png'),
     null,
     null,
-    [30, 30, 40, 40]
+    [ 30, 30, 40, 40 ]
   );
   //  var np = Tiny.Sprite.fromImage('https://gw.alipayobjects.com/zos/rmsportal/cdkDQmJoLcahbqyaewGG.png')
   var rendered = true;
@@ -60,6 +60,9 @@
     if (yoyo) {
       np.resize(null, np.height - 1);
     } else {
+      if (np.height < 100) {
+        return;
+      }
       np.resize(null, np.height + 1);
     }
   });
@@ -68,7 +71,7 @@
     Tiny.Texture.fromImage('https://gw.alipayobjects.com/zos/rmsportal/ipdnmCVbXeVBPprGCYlW.png'),
     200,
     300,
-    [30, 30, 100, 100]
+    [ 30, 30, 100, 100 ]
   );
   np2.setPosition(120, 10);
   np2.on('rendered', function () {
