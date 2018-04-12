@@ -1,3 +1,9 @@
+## 0.1.2
+
+`2018-04-12`
+
+- 替换 `Tiny.ticker.shared.countDown` 为 `Tiny.ticker.CountDown`
+
 ## 0.1.1
 
 `2017-12-22`

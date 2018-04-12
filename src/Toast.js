@@ -68,7 +68,7 @@ class Toast extends InputBase {
   };
 
   drawRoundRect() {
-    const {width, height} = this.getLocalBounds();
+    const { width, height } = this.getLocalBounds();
     const finalHeight = height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING;
     let finalWidth = this.PADDING;
     if (width > this.MAX_WIDTH) {
@@ -83,7 +83,7 @@ class Toast extends InputBase {
       Tiny.Sprite.fromImage(this.setting.roundRectBase64_black75).texture,
       finalWidth,
       finalHeight,
-      [10, 10, 1, 1]
+      [ 10, 10, 1, 1 ]
     );
     this.addChild(sprite);
 
@@ -91,7 +91,7 @@ class Toast extends InputBase {
   };
 
   updatePosition() {
-    const {width, height} = this.roundRect;
+    const { width, height } = this.roundRect;
     const win = Tiny.WIN_SIZE;
     this.label.setPosition(width / 2 - this.label.width / 2, height / 2 - this.label.height / 2);
     this.setChildIndex(this.label, 1);
@@ -110,13 +110,15 @@ class Toast extends InputBase {
       this.render(text);
       this.stage.addChild(this);
 
-      Tiny.ticker.shared.countDown({
+      var cd = new Tiny.ticker.CountDown({
         duration: this.autoHideTime,
         times: 1,
-        complete: () => {
-          this.stage.children.length && this.stage.removeChild(this);
-        },
       });
+      cd.on('complete', t => {
+        this.stage.children.length && this.stage.removeChild(this);
+        cd.destroy();
+      });
+      cd.start();
     }
   }
 }
