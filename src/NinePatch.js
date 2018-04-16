@@ -89,7 +89,7 @@ class NinePatch extends UIBase {
     /**
     * canvas渲染的时候 可能会有缝隙 用这个来修复 默认是0
     */
-    this._overlapPadding = overlapPadding || 1;
+    this._overlapPadding = overlapPadding || 0;
 
     this._inited = false;
 
