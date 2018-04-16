@@ -110,11 +110,11 @@ class Toast extends InputBase {
       this.render(text);
       this.stage.addChild(this);
 
-      var cd = new Tiny.ticker.CountDown({
+      const cd = new Tiny.ticker.CountDown({
         duration: this.autoHideTime,
         times: 1,
       });
-      cd.on('complete', t => {
+      cd.on('complete', (t) => {
         this.stage.children.length && this.stage.removeChild(this);
         cd.destroy();
       });

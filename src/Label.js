@@ -49,7 +49,7 @@ class Label extends InputBase {
       wordWrap, // eslint-disable-line
       breakWords, // eslint-disable-line
       wordWrapWidth, // eslint-disable-line
-      ...others
+      ...others // eslint-disable-line
     } = this.settings;
 
     const opt = {
