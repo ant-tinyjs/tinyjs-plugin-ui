@@ -74,17 +74,7 @@
     [ 30, 30, 100, 100 ]
   );
   np2.setPosition(120, 10);
-  np2.on('rendered', function () {
-    // 为直观感受，给每个区块加上边框
-    np2.children.forEach(function (item) {
-      var bound = item.getBounds();
-      var rectangle = new Tiny.Graphics();
-      rectangle.lineStyle(1, 0xFF3300, 1);
-      rectangle.drawRect(bound.x, bound.y, bound.width, bound.height);
-      rectangle.endFill();
-      container.addChild(rectangle);
-    });
-  });
+  // np2.debug = true;
   container.addChild(np2);
 
   app.run(container);
