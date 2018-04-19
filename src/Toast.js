@@ -83,7 +83,8 @@ class Toast extends InputBase {
       Tiny.Sprite.fromImage(this.setting.roundRectBase64_black75).texture,
       finalWidth,
       finalHeight,
-      [ 10, 10, 1, 1 ]
+      [ 10, 10, 1, 1 ],
+      0
     );
     this.addChild(sprite);
 
