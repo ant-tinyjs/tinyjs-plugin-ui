@@ -4,7 +4,7 @@
 
 ## 查看demo
 
-http://tinyjs.net/#/plugins/tinyjs-plugin-ui/demo
+http://tinyjs.net/plugins/tinyjs-plugin-ui.html#demo
 
 ## 引用方法
 
@@ -55,7 +55,7 @@ container.addChild(btn);
 注意：
 
 - 由于安全策略，ui.DOM 的渲染模式只支持 canvas，如果要用，需要将固定设置启动参数 `renderType` 为 `Tiny.RENDERER_TYPE.CANVAS`
-- 由于浏览器渲染机制问题，在Safari下，[tinyjs-plugin-tiling](http://tinyjs.net/#/plugins/tinyjs-plugin-tiling/docs) 插件中的 `TilingSprite` 类会影响到 ui.DOM 的背景，可以通过添加顺序来规避（即后添加 `TilingSprite` 实例化显示对象），可以看看 demo 下的 "DOM & TilingSprite" 例子。
+- 由于浏览器渲染机制问题，在Safari下，[tinyjs-plugin-tiling](http://tinyjs.net/plugins/tinyjs-plugin-tiling.html#docs) 插件中的 `TilingSprite` 类会影响到 ui.DOM 的背景，可以通过添加顺序来规避（即后添加 `TilingSprite` 实例化显示对象），可以看看 demo 下的 "DOM & TilingSprite" 例子。
 
 ```
 // 写一段 HTML
@@ -79,8 +79,8 @@ container.addChild(dom);
 ```
 
 ## 依赖
-- `Tiny.js`: [Link](http://tinyjs.net/#/docs/api)
+- `Tiny.js`: [Link](http://tinyjs.net/api)
 
 ## API文档
 
-http://tinyjs.net/#/plugins/tinyjs-plugin-ui/docs
+http://tinyjs.net/plugins/tinyjs-plugin-ui.html#docs
