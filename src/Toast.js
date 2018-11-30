@@ -6,7 +6,6 @@ import NinePatch from './NinePatch';
  * Toast 组件
  *
  * @example
- *
  * var toast = new Tiny.ui.Toast(mainContainer, 3000);
  * toast.show('123');
  *
@@ -18,13 +17,13 @@ import NinePatch from './NinePatch';
 
 class Toast extends InputBase {
   /**
-   * @param {Tiny.Application}    app            - Tiny.Application的实例
-   * @param {Number}              autoHideTime   - 自动隐藏时间，单位为毫秒，不传默认为2000ms
+   * @param {Tiny.Application} app - Tiny.Application的实例
+   * @param {Number} [autoHideTime=2000] - 自动隐藏时间，单位为毫秒，不传默认为2000ms
    */
   constructor(app, autoHideTime) {
     super();
 
-    this.stage = app && app.stage || null;
+    this.stage = app && app.stage || null; //eslint-disable-line
     this.autoHideTime = autoHideTime || 2000;
 
     //constant
@@ -69,7 +68,7 @@ class Toast extends InputBase {
 
   drawRoundRect() {
     const { width, height } = this.getLocalBounds();
-    const finalHeight = height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING;
+    const finalHeight = height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING; //eslint-disable-line
     let finalWidth = this.PADDING;
     if (width > this.MAX_WIDTH) {
       finalWidth += this.MAX_WIDTH;
@@ -83,7 +82,7 @@ class Toast extends InputBase {
       Tiny.Sprite.fromImage(this.setting.roundRectBase64_black75).texture,
       finalWidth,
       finalHeight,
-      [ 10, 10, 1, 1 ],
+      [10, 10, 1, 1],
       0
     );
     this.addChild(sprite);
@@ -103,7 +102,7 @@ class Toast extends InputBase {
    * 弹出框的弹出方法，调用后才能弹出。
    * 调用时可以弹出不同的文案，同时执行不同的回调函数
    *
-   * @param {string}         text           - 弹出的文案
+   * @param {string} text - 弹出的文案
    */
   show(text) {
     if (this.stage) {

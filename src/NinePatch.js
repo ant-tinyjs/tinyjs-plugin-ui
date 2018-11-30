@@ -21,7 +21,6 @@ import UIBase from './UIBase';
  * </pre>
  *
  * @example
- *
  * var np = new Tiny.ui.NinePatch(
  *  Tiny.Texture.fromImage('https://gw.alipayobjects.com/zos/rmsportal/ipdnmCVbXeVBPprGCYlW.png'),
  *  200,
@@ -37,13 +36,13 @@ import UIBase from './UIBase';
  */
 class NinePatch extends UIBase {
   /**
- * @constructor
- * @param {Tiny.BaseTexture} texture - 九宫格纹理
- * @param {number} width - 宽度
- * @param {number} height - 高度
- * @param {Array<Number>} scale9Grid - 九宫格定义
- * @param {Array<Number>} overlapPadding - canvas渲染的时候 可能会有缝隙 用这个来修复 默认是0
- */
+   * @constructor
+   * @param {Tiny.BaseTexture} texture - 九宫格纹理
+   * @param {number} width - 宽度
+   * @param {number} height - 高度
+   * @param {Array<Number>} scale9Grid - 九宫格定义
+   * @param {Array<Number>} [overlapPadding=1] - Canvas 渲染模式下可能会有缝隙，用这个来修复，默认是1
+   */
   constructor(texture, width, height, scale9Grid, overlapPadding = 1) {
     super();
     this._gridTexture = texture;
@@ -52,26 +51,30 @@ class NinePatch extends UIBase {
 
     /**
      * 存储九宫格纹理
+     *
      * @private
      */
     this._textures = [];
 
     /**
-     * 存储九宫格sprite对象
+     * 存储九宫格 Sprite 对象
+     *
      * @private
      */
     this._gridSprites = [];
 
     /**
-    * 真实宽度
-    * @private
-    */
+     * 真实宽度
+     *
+     * @private
+     */
     this._targetWidth = width || 0;
 
     /**
-    * 真实高度
-    * @private
-    */
+     * 真实高度
+     *
+     * @private
+     */
     this._targetHeight = height || 0;
 
     /**
@@ -82,14 +85,15 @@ class NinePatch extends UIBase {
 
     /**
      * 九宫格设置
+     *
      * @private
      */
     this._scale9Grid = null;
 
     /**
-    * canvas渲染的时候 可能会有缝隙 用这个来修复 默认是0
-    */
-    this._overlapPadding = overlapPadding || 0;
+     * Canvas 渲染模式下可能会有缝隙，用这个来修复，默认是1
+     */
+    this._overlapPadding = overlapPadding || 1;
 
     this._inited = false;
 
@@ -127,9 +131,9 @@ class NinePatch extends UIBase {
   }
 
   /**
-  * @name Tiny.ui.NinePatch#debug
-  * @property {boolean} debug - 是否开启调试模式 默认false
-  */
+   * @name Tiny.ui.NinePatch#debug
+   * @property {boolean} debug - 是否开启调试模式 默认false
+   */
   get debug() {
     return this._debugDraw;
   }
@@ -138,9 +142,9 @@ class NinePatch extends UIBase {
     this._update();
   }
   /**
-  * @name Tiny.ui.NinePatch#scale9Grid
-  * @property {string | Array} scale9Grid - 九宫格数据 "30,10,10,5" 或者 [30,10,10,5]
-  */
+   * @name Tiny.ui.NinePatch#scale9Grid
+   * @property {string | Array} scale9Grid - 九宫格数据 "30,10,10,5" 或者 [30,10,10,5]
+   */
   get scale9Grid() {
     return this._scale9Grid;
   }
@@ -160,9 +164,9 @@ class NinePatch extends UIBase {
   }
 
   /**
-  * @name Tiny.ui.NinePatch#width
-  * @property {number} width - 宽度
-  */
+   * @name Tiny.ui.NinePatch#width
+   * @property {number} width - 宽度
+   */
   get width() {
     return this._targetWidth || this._gridTexture.width;
   }
@@ -172,9 +176,9 @@ class NinePatch extends UIBase {
   }
 
   /**
-  * @name Tiny.ui.NinePatch#height
-  * @property {number} height - 高度
-  */
+   * @name Tiny.ui.NinePatch#height
+   * @property {number} height - 高度
+   */
   get height() {
     return this._targetHeight || this._gridTexture.height;
   }
@@ -184,9 +188,9 @@ class NinePatch extends UIBase {
   }
 
   /**
-  * @name Tiny.ui.NinePatch#overlapPadding
-  * @property {number} overlapPadding - 九宫格之间的重合度 canvas渲染的时候 可能会有缝隙 用这个来修复 默认是0
-  */
+   * @name Tiny.ui.NinePatch#overlapPadding
+   * @property {number} overlapPadding - 九宫格之间的重合度，Canvas 渲染模式下可能会有缝隙，用这个来修复，默认是1
+   */
   get overlapPadding() {
     return this._overlapPadding;
   }
@@ -196,12 +200,12 @@ class NinePatch extends UIBase {
   }
 
   /**
-  * 改变尺寸
-  * @private
-  * @method Tiny.ui.NinePatch#resize
-  * @param {number} width 宽度
-  * @param {number} height 高度
-  */
+   * 改变尺寸
+   * @private
+   * @method Tiny.ui.NinePatch#resize
+   * @param {number} width - 宽度
+   * @param {number} height - 高度
+   */
   resize(width, height) {
     this._targetWidth = width;
     this._targetHeight = height;

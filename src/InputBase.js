@@ -14,20 +14,16 @@ class InputBase extends UIBase {
     this.interactive = true;
 
     // touchdown
-    this.on('pointerdown', function (e) {
-    });
+    this.on('pointerdown', function(e) {});
 
     // touchup
-    this.on('pointerup', function (e) {
-    });
+    this.on('pointerup', function(e) {});
 
     // touchmove
-    this.on('pointermove', function (e) {
-    });
+    this.on('pointermove', function(e) {});
 
     // touchcancel
-    this.on('pointerupoutside', function (e) {
-    });
+    this.on('pointerupoutside', function(e) {});
   }
 }
 

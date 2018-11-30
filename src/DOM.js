@@ -12,7 +12,6 @@ import UIBase from './UIBase';
  * </ul>
  *
  * @example
- *
  * // 写一段 HTML
  * var html =
  *  '<div style="font-size:40px;color:#fff;">' +
@@ -33,10 +32,10 @@ import UIBase from './UIBase';
 class DOM extends UIBase {
   /**
    *
-   * @param {object}  options
-   * @param {string}  options.width   - 宽
-   * @param {string}  options.height  - 高
-   * @param {string}  options.html    - HTML 文本片段
+   * @param {object} options
+   * @param {string} [options.width] - 宽
+   * @param {string} [options.height] - 高
+   * @param {string} options.html - HTML 文本片段
    */
   constructor(options) {
     super();
@@ -69,9 +68,9 @@ class DOM extends UIBase {
       </foreignObject>
     </svg>
     `;
-    const svg = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
+    const svg = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
     const reader = new FileReader();
-    reader.onload = function () {
+    reader.onload = function() {
       const texture = Tiny.Texture.fromImage(this.result);
       if (isUpdate) {
         self.sprite.texture = texture;
@@ -79,7 +78,7 @@ class DOM extends UIBase {
         self.sprite = new Tiny.Sprite(texture);
         self.addChild(self.sprite);
       }
-      self.sprite.texture.on('update', function () {
+      self.sprite.texture.on('update', function() {
         self.emit('rendered');
       });
     };
@@ -90,7 +89,7 @@ class DOM extends UIBase {
 /**
  * 获取字符格式 HTML 的宽高
  *
- * @param {string}  html
+ * @param {string} html
  * @private
  * @return {object}
  */
@@ -118,7 +117,7 @@ function getHTMLWH(html) {
 
 /**
  *
- * @param {HTMLElement}  elem
+ * @param {HTMLElement} elem
  * @private
  * @return {array}
  */

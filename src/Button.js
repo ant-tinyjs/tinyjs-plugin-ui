@@ -4,7 +4,6 @@ import InputBase from './InputBase';
  * Button 组件
  *
  * @example
- *
  * var container = new Tiny.Container();
  * var btn = new Tiny.ui.Button({
  *   background: 'https://zos.alipayobjects.com/rmsportal/YJlpCuekebvKNap.png',
@@ -25,18 +24,18 @@ import InputBase from './InputBase';
 class Button extends InputBase {
   /**
    *
-   * @param {object}              options
-   * @param {string}              options.width               - 宽，不传使用背景图片的宽
-   * @param {string}              options.height              - 高，不传使用背景图片的高
-   * @param {Tiny.Sprite|string}  options.background          - 背景图片，不传即透明背景
-   * @param {object}              options.active
-   * @param {Tiny.Sprite|string}  options.active.background   - 点击后的背景图片
-   * @param {number}              options.active.opacity      - 点击后设置透明效果
-   * @param {number|object}       options.active.scale        - 点击后设置缩放效果
-   * @param {function}            options.active.callback     - 点击后的回调
-   * @param {Tiny.Text|string}    options.text                - 文本
-   * @param {Tiny.textStyle}      options.textStyle           - 文本样式
-   * @param {number}              options.textPosition=5      - 文本位置
+   * @param {object} options
+   * @param {string} [options.width] - 宽，不传使用背景图片的宽
+   * @param {string} [options.height] - 高，不传使用背景图片的高
+   * @param {Tiny.Sprite|string} [options.background] - 背景图片，不传即透明背景
+   * @param {object} [options.active]
+   * @param {Tiny.Sprite|string} [options.active.background] - 点击后的背景图片
+   * @param {number} [options.active.opacity] - 点击后设置透明效果
+   * @param {number|object} [options.active.scale] - 点击后设置缩放效果
+   * @param {function} [options.active.callback] - 点击后的回调
+   * @param {Tiny.Text|string} [options.text] - 文本
+   * @param {Tiny.textStyle} [options.textStyle] - 文本样式
+   * @param {number} [options.textPosition=5] - 文本位置
    */
   constructor(options) {
     super();
@@ -88,7 +87,7 @@ class Button extends InputBase {
     this.background = background;
     this.buttonMode = true;
 
-    const leaveHandler = function () {
+    const leaveHandler = function() {
       if (activeBackgroundTexture) {
         background.texture = backgroundTexture;
       }
@@ -99,13 +98,13 @@ class Button extends InputBase {
         self.setScale(thisScaleX, thisScaleY);
       }
     };
-    const clickHandler = function (e) {
+    const clickHandler = function(e) {
       if (Tiny.isFunction(active.callback)) {
         active.callback(e);
       }
     };
     // touchdown
-    this.on('pointerdown', function (e) {
+    this.on('pointerdown', function(e) {
       if (activeBackgroundTexture) {
         background.texture = activeBackgroundTexture;
       }
@@ -128,8 +127,7 @@ class Button extends InputBase {
     this.on('pointerup', leaveHandler);
 
     // touchmove
-    this.on('pointermove', function (e) {
-    });
+    this.on('pointermove', function(e) {});
 
     // touchcancel
     this.on('pointerupoutside', leaveHandler);
@@ -199,7 +197,6 @@ class Button extends InputBase {
    * 按钮的值（即文本）
    *
    * @example
-   *
    * var button = new Tiny.ui.Button({
    *  text: 'Hello, Tiny.js'
    * });
@@ -215,7 +212,6 @@ class Button extends InputBase {
   get value() {
     return this.text.text;
   }
-
   set value(val) {
     if (this.text) {
       this.text.text = val;

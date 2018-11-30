@@ -7,7 +7,6 @@ import NinePatch from './NinePatch';
  * Alert 组件
  *
  * @example
- *
  * var tinyAlert = new Tiny.ui.Alert(mainContainer, buttonText);
  * tinyAlert.alert('123', function() {
  *    // your code here
@@ -21,13 +20,13 @@ import NinePatch from './NinePatch';
 
 class Alert extends InputBase {
   /**
-   * @param {Tiny.Application}    app            - Tiny.Application的实例
-   * @param {string}              buttonText     - 弹框的按钮文案，不传则为’关闭‘
+   * @param {Tiny.Application} app - Tiny.Application的实例
+   * @param {string} buttonText - 弹框的按钮文案，不传则为’关闭‘
    */
   constructor(app, buttonText) {
     super();
 
-    this.stage = app && app.stage || null;
+    this.stage = app && app.stage || null; //eslint-disable-line
     this.buttonText = buttonText || '关闭';
 
     //constant
@@ -66,8 +65,8 @@ class Alert extends InputBase {
   };
 
   drawRoundRect() {
-    const {height} = this.getLocalBounds();
-    const finalHeight = height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING;
+    const { height } = this.getLocalBounds();
+    const finalHeight = height > this.MIN_HEIGHT && height + this.PADDING || this.MIN_HEIGHT + this.PADDING; //eslint-disable-line
     const baseTexture = Tiny.BaseTexture.from(this.setting.roundRectBase64_white);
     const texture = new Tiny.Texture(baseTexture);
     const sprite = new NinePatch(
@@ -104,7 +103,7 @@ class Alert extends InputBase {
   };
 
   updatePosition() {
-    const {width, height} = this.roundRect;
+    const { width, height } = this.roundRect;
     const win = Tiny.WIN_SIZE;
     this.btn.setPosition(this.MAX_WIDTH - this.btn.width, height - this.btn.height);
     this.label.setPosition(this.MAX_WIDTH / 2 - this.label.width / 2, height / 2 - this.label.height / 2 - 5 * this.DPI);
@@ -116,8 +115,8 @@ class Alert extends InputBase {
    * 弹出框的弹出方法，调用后才能弹出。
    * 调用时可以弹出不同的文案，同时执行不同的回调函数
    *
-   * @param {string}         text           - 弹出的文案
-   * @param {function}       callback       - 点击弹出框按钮时的回调函数
+   * @param {string} text - 弹出的文案
+   * @param {function} callback - 点击弹出框按钮时的回调函数
    */
   alert(text, callback) {
     if (this.stage) {

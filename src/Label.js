@@ -4,7 +4,6 @@ import InputBase from './InputBase';
  * Label 组件
  *
  * @example
- *
  * var container = new Tiny.Container();
  * var label = new Tiny.ui.Label({
  *   text: 'tiny.js',
@@ -21,11 +20,11 @@ import InputBase from './InputBase';
 class Label extends InputBase {
   /**
    *
-   * @param {object}              options
-   * @param {number}              options.width               - 宽，不传则根据文字长短自动宽度，且不会根据宽度自动断行
-   * @param {number}              options.height              - 高，不传则根据文字长短自动高度，且不会根据高度裁切文字
-   * @param {Tiny.Text|string}    options.text                - 文本，默认空字符串
-   * @param {Tiny.textStyle}      options.*                   - 文本样式(http://tinyjs.net/#/docs/api)
+   * @param {object} options
+   * @param {number} [options.width] - 宽，不传则根据文字长短自动宽度，且不会根据宽度自动断行
+   * @param {number} [options.height] - 高，不传则根据文字长短自动高度，且不会根据高度裁切文字
+   * @param {Tiny.Text|string} [options.text] - 文本，默认空字符串
+   * @param {Tiny.textStyle} [options.*] - 文本样式(http://tinyjs.net/#/docs/api)
    */
   constructor(options) {
     super();
@@ -53,8 +52,8 @@ class Label extends InputBase {
     } = this.settings;
 
     const opt = {
-      wordWrap: width && true || false,
-      breakWords: width && true || false,
+      wordWrap: width && true || false, //eslint-disable-line
+      breakWords: width && true || false, //eslint-disable-line
       wordWrapWidth: width,
       ...others,
     };

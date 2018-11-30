@@ -10,8 +10,8 @@ import UISettings from './UISettings';
 class UIBase extends Tiny.Container {
   /**
    *
-   * @param {number}  width   - UI 组件的宽度
-   * @param {number}  height  - UI 组件的高度
+   * @param {number} width - UI 组件的宽度
+   * @param {number} height - UI 组件的高度
    */
   constructor(width, height) {
     super();
