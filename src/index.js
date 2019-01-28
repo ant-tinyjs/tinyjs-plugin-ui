@@ -1,6 +1,10 @@
 /**
- * @file        Tiny.js UI plugin
- * @author      yiqi
+ * ui - Tiny.js UI plugin
+ *
+ * @name        tinyjs-plugin-ui
+ * @overview    Tiny.js UI plugin
+ * @author      yiiqii
+ * @license     MIT
  */
 
 /**

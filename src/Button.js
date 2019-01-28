@@ -132,7 +132,10 @@ class Button extends InputBase {
     // touchcancel
     this.on('pointerupoutside', leaveHandler);
 
-    this.on('click', clickHandler);
+    // @version 0.2.1 @2019.01.28 如果是移动端就不绑定 click 事件了，避免 300ms 延迟触发两次
+    if (!Tiny.isMobile.any || !Tiny.config.viewTouched) {
+      this.on('click', clickHandler);
+    }
     this.on('tap', clickHandler);
   }
 
