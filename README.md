@@ -84,3 +84,7 @@ container.addChild(dom);
 ## API文档
 
 http://tinyjs.net/plugins/tinyjs-plugin-ui.html#docs
+
+## 感谢
+
+[Michael-Wang93](https://github.com/Michael-Wang93)

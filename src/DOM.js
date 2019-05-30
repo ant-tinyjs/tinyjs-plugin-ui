@@ -25,6 +25,18 @@ import UIBase from './UIBase';
  * // 将实例化的 dom 直接添加到显示容器中
  * container.addChild(dom);
  *
+ * @example
+ * // 使用自定义字体文件
+ * var html = '<div style="font-family:AlipayNumber;font-size:30px;color:#fff">AlipayNumber 1234.56</div>';
+ * // 定义一个 base64 格式的字体
+ * // 字体文件转 base64：https://transfonter.org/
+ * var defs = `<defs><style type="text/css">@font-face {font-family: AlipayNumber; src: url(data:application/font-woff;charset=utf-8;base64,d09GRg...);}</style></defs>`;
+ * // 用上面的那段 HTML 生成 DOM 显示对象
+ * var dom = new Tiny.ui.DOM({
+ *  html: html,
+ *  defs: defs,
+ * });
+ *
  * @class
  * @extends Tiny.ui.UIBase
  * @memberof Tiny.ui
@@ -36,6 +48,7 @@ class DOM extends UIBase {
    * @param {string} [options.width] - 宽
    * @param {string} [options.height] - 高
    * @param {string} options.html - HTML 文本片段
+   * @param {string} options.defs - defs 文本片段
    */
   constructor(options) {
     super();
@@ -43,35 +56,38 @@ class DOM extends UIBase {
     Object.assign(this.setting, options);
 
     const html = this.setting.html;
-    const outerHtml = this.setting.outerHtml;
+    const defs = this.setting.defs;
+
     this.sprite = null;
-    this._parseHTML(html, false, outerHtml);
+    this._parseHTML(html, defs, false);
   }
 
   /**
    * 更新 html
    *
    * @param {string} html - HTML 片段
+   * @param {string} defs - defs 片段
    */
-  updateHTML(html, outerHtml) {
-    this._parseHTML(html, true, outerHtml);
+  updateHTML(html, defs) {
+    this._parseHTML(html, defs, true);
   }
 
-  _parseHTML(innerHtml, isUpdate, outerHtml) {
+  _parseHTML(html, defs = '', isUpdate) {
     const self = this;
     const htmlHeightWidth = getHTMLWH(html);
     const width = ~~this.setting.width || htmlHeightWidth.width;
     const height = ~~this.setting.height || htmlHeightWidth.height;
     const data = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="${width}" height="${height}">
       <foreignObject width="100%" height="100%">
-        ${outerHtml}
-        <div xmlns="http://www.w3.org/1999/xhtml">${innerHtml}</div>
+        ${defs}
+        <div xmlns="http://www.w3.org/1999/xhtml">${html}</div>
       </foreignObject>
     </svg>
     `;
     const svg = new Blob([data], { type: 'image/svg+xml;charset=utf-8' });
     const reader = new FileReader();
+
     reader.onload = function() {
       const texture = Tiny.Texture.fromImage(this.result);
       if (isUpdate) {
