@@ -43,8 +43,9 @@ class DOM extends UIBase {
     Object.assign(this.setting, options);
 
     const html = this.setting.html;
+    const outerHtml = this.setting.outerHtml;
     this.sprite = null;
-    this._parseHTML(html);
+    this._parseHTML(html, false, outerHtml);
   }
 
   /**
@@ -52,11 +53,11 @@ class DOM extends UIBase {
    *
    * @param {string} html - HTML 片段
    */
-  updateHTML(html) {
-    this._parseHTML(html, true);
+  updateHTML(html, outerHtml) {
+    this._parseHTML(html, true, outerHtml);
   }
 
-  _parseHTML(html, isUpdate) {
+  _parseHTML(innerHtml, isUpdate, outerHtml) {
     const self = this;
     const htmlHeightWidth = getHTMLWH(html);
     const width = ~~this.setting.width || htmlHeightWidth.width;
@@ -64,7 +65,8 @@ class DOM extends UIBase {
     const data = `
     <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
       <foreignObject width="100%" height="100%">
-        <div xmlns="http://www.w3.org/1999/xhtml">${html}</div>
+        ${outerHtml}
+        <div xmlns="http://www.w3.org/1999/xhtml">${innerHtml}</div>
       </foreignObject>
     </svg>
     `;
