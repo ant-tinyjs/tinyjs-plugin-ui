@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Tiny.ui.DOM</title>
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="yes" name="apple-touch-fullscreen" />
+  <meta content="telephone=no,email=no" name="format-detection" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <style>
+    html,
+    body,
+    p,
+    div {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script src="https://gw.alipayobjects.com/os/lib/tinyjs/tiny/1.2.4/tiny.js"></script>
+  <script src="../index.debug.js"></script>
+
+  <script type="text/javascript">
+    // 新建 App
+    var app = new Tiny.Application({
+      width: 400,
+      height: 400,
+      fixSize: true,
+      renderOptions: {
+        backgroundColor: 0xcccccc
+      }
+    });
+    var resources = ['res/tileset-number.json', 'res/tileset-bnumber.json'];
+    var loader = new Tiny.loaders.Loader();
+
+    for (var i = 0; i < 10; i++) {
+      resources.push('./res/snumber/s' + i + '.png');
+    }
+
+    loader
+      .add(resources)
+      .load(function() {
+        var numberObj = {};
+        var bNumberObj = {};
+        var sNumberObj = {};
+
+        for (var i = 0; i < 10; i++) {
+          numberObj[i] = Tiny.TextureCache['tileset-number-' + i + '.png'];
+          bNumberObj[i] = Tiny.TextureCache['tileset-bnumber-b' + i + '.png'];
+          sNumberObj[i] = Tiny.TextureCache['./res/snumber/s' + i + '.png'];
+        }
+
+        var container = new Tiny.Container();
+        var number = new Tiny.ui.ImageNumber(numberObj);
+        var bNumber = new Tiny.ui.ImageNumber(bNumberObj);
+        var sNumber = new Tiny.ui.ImageNumber(sNumberObj);
+        var numberUI = number.create('31415926');
+        var bNumberUI = bNumber.create();
+        var bNumberUI2 = bNumber.create('0987654321');
+        var sNumberUI = sNumber.create();
+
+        numberUI.setPositionY(0);
+        bNumberUI.setPositionY(60);
+        bNumberUI2.setPositionY(120);
+        sNumberUI.setPositionY(180);
+        container.addChild(numberUI);
+        container.addChild(bNumberUI);
+        container.addChild(bNumberUI2);
+        container.addChild(sNumberUI);
+
+        app.run(container);
+        app.onUpdate(function() {
+          var now = new Date(Date.now()).toLocaleTimeString();
+
+          bNumber.update(now, bNumberUI);
+          sNumber.update(now);
+        });
+      });
+  </script>
+</body>
+
+</html>

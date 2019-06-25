@@ -1,0 +1,212 @@
+{
+  "meta": {
+    "image": "tileset-bnumber.png",
+    "size": {
+      "w": 176,
+      "h": 168
+    },
+    "scale": "1"
+  },
+  "frames": {
+    "tileset-bnumber-b0.png": {
+      "frame": {
+        "x": 10,
+        "y": 10,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b1.png": {
+      "frame": {
+        "x": 54,
+        "y": 122,
+        "w": 16,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 16,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 16,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b2.png": {
+      "frame": {
+        "x": 54,
+        "y": 10,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b3.png": {
+      "frame": {
+        "x": 98,
+        "y": 10,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b4.png": {
+      "frame": {
+        "x": 10,
+        "y": 66,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b5.png": {
+      "frame": {
+        "x": 54,
+        "y": 66,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b6.png": {
+      "frame": {
+        "x": 98,
+        "y": 66,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b7.png": {
+      "frame": {
+        "x": 142,
+        "y": 10,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b8.png": {
+      "frame": {
+        "x": 142,
+        "y": 66,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    },
+    "tileset-bnumber-b9.png": {
+      "frame": {
+        "x": 10,
+        "y": 122,
+        "w": 24,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 24,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 36
+      }
+    }
+  }
+}
