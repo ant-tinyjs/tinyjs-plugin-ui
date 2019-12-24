@@ -19,8 +19,8 @@ const banner = `/*!
  * Version: v${pkg.version}
  */
 ${cjs ? `
-// AppX: adapter for the alipay mini program
-typeof my !== 'undefined' && (Tiny = my.Tiny);
+// AppX: adapter for the alibaba mini program
+typeof $global !== 'undefined' && (Tiny = $global.Tiny);
 ` : ''}`;
 
 const config = {
