@@ -90,10 +90,7 @@ class NinePatch extends UIBase {
      */
     this._scale9Grid = null;
 
-    /**
-     * Canvas 渲染模式下可能会有缝隙，用这个来修复，默认是1
-     */
-    this._overlapPadding = overlapPadding || 1;
+    this._overlapPadding = overlapPadding;
 
     this._inited = false;
 
