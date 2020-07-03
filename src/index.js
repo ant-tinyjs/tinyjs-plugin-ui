@@ -25,3 +25,4 @@ export { default as Alert } from './Alert';
 export { default as NinePatch } from './NinePatch';
 export { default as Toast } from './Toast';
 export { default as ImageNumber } from './ImageNumber';
+export { default as TiledText } from './TiledText';

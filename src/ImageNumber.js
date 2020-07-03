@@ -51,6 +51,7 @@ class ImageNumber {
    *
    * @param {string} string - 字符
    * @param {Tiny.Container} container - 可选，包裹的容器
+   * @return {Tiny.Container}
    */
   create(string = '', container = new Tiny.Container()) {
     const arr = string.split('');
@@ -89,6 +90,7 @@ class ImageNumber {
    *
    * @param {string} string - 更新的字符
    * @param {Tiny.Container} container - 可选，不传会使用 create 创建的 Container 对象
+   * @return {Tiny.Container}
    */
   update(string = '', container) {
     if (!container) {

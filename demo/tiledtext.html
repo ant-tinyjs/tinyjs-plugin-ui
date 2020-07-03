@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Tiny.ui.DOM</title>
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="yes" name="apple-touch-fullscreen" />
+  <meta content="telephone=no,email=no" name="format-detection" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+  <style>
+    html,
+    body,
+    p,
+    div {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script src="https://gw.alipayobjects.com/os/lib/tinyjs/tiny/1.4.0/tiny.js"></script>
+  <script src="../index.debug.js"></script>
+
+  <script type="text/javascript">
+    // 新建 App
+    var app = new Tiny.Application({
+      showFPS: true,
+      debug: true,
+      width: 400,
+      height: 400,
+      dpi: 2,
+      fixSize: true,
+      renderOptions: {
+        backgroundColor: 0x2a3145
+      }
+    });
+
+    var container = new Tiny.Container();
+    var tiledText = new Tiny.ui.TiledText(container, {
+      fontSize: 32,
+      fontFamily: 'Arial',
+      fill: '#ffffff',
+    });
+
+    ['绿色办公', '无纸化购物', '地铁出行', 'In-store pay', '网络购票'].forEach((text, i) => {
+      var txt = tiledText.create(text);
+
+      txt.setPosition(20 * i, 80 * i);
+      container.addChild(txt);
+    });
+
+    var txt2 = tiledText.create('共享单车');
+
+    txt2.setAnchor(0.5);
+    txt2.setPosition(Tiny.WIN_SIZE.width / 2, Tiny.WIN_SIZE.height / 2);
+    container.addChild(txt2);
+
+    app.onUpdate(function() {
+      txt2.updateText(`当前时间：${new Date().getTime()}`);
+    });
+    app.run(container);
+  </script>
+</body>
+
+</html>
