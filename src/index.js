@@ -26,3 +26,4 @@ export { default as NinePatch } from './NinePatch';
 export { default as Toast } from './Toast';
 export { default as ImageNumber } from './ImageNumber';
 export { default as TiledText } from './TiledText';
+export { default as InlineItems } from './InlineItems';
