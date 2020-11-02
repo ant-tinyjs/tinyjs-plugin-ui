@@ -14,8 +14,8 @@ http://tinyjs.net/plugins/tinyjs-plugin-ui.html#demo
 
 - 也可以直接引用线上cdn地址，注意要使用最新的版本号，例如：
 
-  - https://gw.alipayobjects.com/os/lib/tinyjs-plugin-ui/0.5.0/index.js
-  - https://gw.alipayobjects.com/os/lib/tinyjs-plugin-ui/0.5.0/index.debug.js
+  - https://gw.alipayobjects.com/os/lib/tinyjs-plugin-ui/0.6.0/index.js
+  - https://gw.alipayobjects.com/os/lib/tinyjs-plugin-ui/0.6.0/index.debug.js
 
 ## 起步
 首先当然是要引入，推荐`NPM`方式，当然你也可以使用`CDN`或下载独立版本，先从几个例子入手吧！
@@ -24,7 +24,7 @@ http://tinyjs.net/plugins/tinyjs-plugin-ui.html#demo
 
 引用 Tiny.js 源码
 ``` html
-<script src="https://gw.alipayobjects.com/os/lib/tinyjs/tiny/1.4.0/tiny.js"></script>
+<script src="https://gw.alipayobjects.com/os/lib/tinyjs/tiny/1.5.0/tiny.js"></script>
 ```
 ``` js
 var ui = require('tinyjs-plugin-ui');
@@ -87,4 +87,5 @@ http://tinyjs.net/plugins/tinyjs-plugin-ui.html#docs
 
 ## 感谢
 
-[Michael-Wang93](https://github.com/Michael-Wang93)
+- [Michael-Wang93](https://github.com/Michael-Wang93)
+- [meiya163254](https://github.com/meiya163254)

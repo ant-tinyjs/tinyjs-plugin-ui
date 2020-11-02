@@ -5,14 +5,17 @@
 <title>alert</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
 <style>
-  * {
+  html,
+  body,
+  p,
+  div {
     padding: 0;
     margin: 0;
   }
 </style>
 </head>
 <body>
-<script src="https://gw.alipayobjects.com/os/lib/tinyjs/tiny/1.4.0/tiny.js"></script>
+<script src="https://gw.alipayobjects.com/os/lib/tinyjs/tiny/1.5.0/tiny.js"></script>
 <script src="../index.debug.js"></script>
 <script>
   // 新建 App
@@ -23,11 +26,11 @@
     dpi: 2
   });
 
-  const text1 = new Tiny.Text('5.00', { fontSize: 70, fill: 0xffffff});
-  const text2 = new Tiny.Text('元', { fontSize: 32,  fill: 0xffffff});
-  const iconImg1 = './res/inlineItems/icon.png';
-  const iconImg2 = './res/inlineItems/button.png';
-  const rectangle = new Tiny.Graphics();
+  var text1 = new Tiny.Text('5.00', { fontSize: 70, fill: 0xffffff});
+  var text2 = new Tiny.Text('元', { fontSize: 32,  fill: 0xffffff});
+  var iconImg1 = './res/inlineItems/icon.png';
+  var iconImg2 = './res/inlineItems/button.png';
+  var rectangle = new Tiny.Graphics();
     rectangle.lineStyle(4, 0xFF3300, 1);
     rectangle.beginFill(0xFF3300);
     rectangle.drawRect(0, 0, 100, 100);
@@ -37,9 +40,8 @@
   Tiny.Loader
   .add([iconImg1, iconImg2])
   .load((res) => {
-    const icon1 = new Tiny.Sprite(Tiny.TextureCache[iconImg1]);
-    const icon2 = new Tiny.Sprite(Tiny.TextureCache[iconImg2]);
-
+    var icon1 = new Tiny.Sprite(Tiny.TextureCache[iconImg1]);
+    var icon2 = new Tiny.Sprite(Tiny.TextureCache[iconImg2]);
     var line = new Tiny.ui.InlineItems({
       items: [
         { displayObj: icon1 },
@@ -51,7 +53,9 @@
     });
 
     line.setPosition(150, 150);
+
     var container = new Tiny.Container();
+
     container.addChild(line);
 
     setTimeout(() => {

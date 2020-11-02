@@ -17,22 +17,22 @@
  *      {displayObj: sprite1},
  *      {displayObj: text1, leftMargin: 15},
  *      {displayObj: text2, leftMargin: 5},
- *     {displayObj: sprite2, leftMargin: 20},
- *    ],
- *    itemsAlign: 'middle'
- *  });
+ *      {displayObj: sprite2, leftMargin: 20},
+ *   ],
+ *   itemsAlign: 'middle'
+ * });
  *
  * @class
  * @extends Tiny.Container
  * @memberof Tiny.ui
- * @version 0.1.0
+ * @version 0.6.0
  */
 
 class InlineItems extends Tiny.Container {
   /**
    * @constructor
    * @param {Object} options 入参
-   * @param {Array} options.items -显示对象列表
+   * @param {Array} options.items - 显示对象列表
    * @param {Tiny.DisplayObject} options.items.displayObj - 显示对象
    * @param {Number} [options.items.leftMargin=0] - 显示对象左侧 margin
    * @param {Number} [options.items.rightMargin=0] - 显示对象右侧 margin
@@ -84,10 +84,16 @@ class InlineItems extends Tiny.Container {
       const displayObj = curItem.displayObj;
       let y = 0;
       let x = preX + (Number(curItem.leftMargin) || 0);
-      switch(this.itemsAlign) {
-        case 'top': break;
-        case 'bottom': y = maxHeight - displayObj.height; break;
-        default: y = (maxHeight - displayObj.height) / 2; break;
+
+      switch (this.itemsAlign) {
+        case 'top':
+          break;
+        case 'bottom':
+          y = maxHeight - displayObj.height;
+          break;
+        default:
+          y = (maxHeight - displayObj.height) / 2;
+          break;
       }
       displayObj.setPosition(x, y);
       return x + displayObj.width + (Number(curItem.rightMargin) || 0);
@@ -96,6 +102,7 @@ class InlineItems extends Tiny.Container {
 
   /**
    * 删除item(删除后会自动调用 layout 函数重新布局)
+   *
    * @public
    * @method Tiny.ui.InlineItems#deleteItem
    *
@@ -114,6 +121,7 @@ class InlineItems extends Tiny.Container {
 
   /**
    * 在指定位置插入和删除items (插入或删除后会自动调用 layout 函数重新布局)
+   *
    * @public
    * @method Tiny.ui.InlineItems#spliceItems
    *
