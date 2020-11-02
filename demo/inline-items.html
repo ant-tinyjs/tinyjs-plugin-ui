@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>alert</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+<script src="https://gw.alipayobjects.com/os/lib/tinyjs/tiny/1.4.0/tiny.js"></script>
+<script src="../index.debug.js"></script>
+<script>
+  // 新建 App
+  var app = new Tiny.Application({
+    width: 400,
+    height: 400,
+    fixSize: true,
+    dpi: 2
+  });
+
+  const text1 = new Tiny.Text('5.00', { fontSize: 70, fill: 0xffffff});
+  const text2 = new Tiny.Text('元', { fontSize: 32,  fill: 0xffffff});
+  const iconImg1 = './res/inlineItems/icon.png';
+  const iconImg2 = './res/inlineItems/button.png';
+  const rectangle = new Tiny.Graphics();
+    rectangle.lineStyle(4, 0xFF3300, 1);
+    rectangle.beginFill(0xFF3300);
+    rectangle.drawRect(0, 0, 100, 100);
+    rectangle.endFill();
+    rectangle.setPosition(170);
+
+  Tiny.Loader
+  .add([iconImg1, iconImg2])
+  .load((res) => {
+    const icon1 = new Tiny.Sprite(Tiny.TextureCache[iconImg1]);
+    const icon2 = new Tiny.Sprite(Tiny.TextureCache[iconImg2]);
+
+    var line = new Tiny.ui.InlineItems({
+      items: [
+        { displayObj: icon1 },
+        { displayObj: text1, leftMargin: 15 },
+        { displayObj: text2, leftMargin: 5 },
+        { displayObj: icon2, leftMargin: 20 }
+      ],
+      itemsAlign: 'center'
+    });
+
+    line.setPosition(150, 150);
+    var container = new Tiny.Container();
+    container.addChild(line);
+
+    setTimeout(() => {
+      text1.text = '5000.00';
+      line.layout();
+    }, 1000);
+
+    setTimeout(() => {
+      line.deleteItem(text1);
+    }, 2000);
+    setTimeout(() => {
+      line.spliceItems(1, 0, [{ displayObj: rectangle, leftMargin: 20 }]);
+    }, 3000);
+    app.run(container);
+  });
+</script>
+</body>
+</html>
