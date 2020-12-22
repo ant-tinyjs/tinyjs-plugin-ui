@@ -28,7 +28,7 @@ class Button extends InputBase {
    * @param {object} options
    * @param {string} [options.width] - 宽，不传使用背景图片的宽
    * @param {string} [options.height] - 高，不传使用背景图片的高
-   * @param {Tiny.Sprite|string} [options.background] - 背景图片，不传即透明背景
+   * @param {Tiny.Sprite|Tiny.Graphics|string} [options.background] - 背景图片，不传即透明背景
    * @param {object} [options.active]
    * @param {Tiny.Sprite|string} [options.active.background] - 点击后的背景图片
    * @param {number} [options.active.opacity] - 点击后设置透明效果
