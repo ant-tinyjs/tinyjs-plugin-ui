@@ -86,6 +86,7 @@ class Button extends InputBase {
     this.text = text;
     this.background = background;
     this.buttonMode = true;
+    this.updatePosition();
 
     const leaveHandler = function() {
       if (activeBackgroundTexture) {
