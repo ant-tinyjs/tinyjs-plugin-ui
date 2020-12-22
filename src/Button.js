@@ -1,4 +1,5 @@
 import InputBase from './InputBase';
+import throttle from 'lodash/throttle';
 
 /**
  * Button 组件
@@ -36,13 +37,13 @@ class Button extends InputBase {
    * @param {Tiny.Text|string} [options.text] - 文本
    * @param {Tiny.textStyle} [options.textStyle] - 文本样式
    * @param {number} [options.textPosition=5] - 文本位置
+   * @param {boolean} [options.improveScrollExperience] - 是否支持滚动优化，在搭配 Scroller 插件使用时，设置为 true 的话可以优化滚动时触发点击的体验
    */
   constructor(options) {
     super();
 
     Object.assign(this.setting, options);
 
-    const self = this;
     const active = this.setting.active;
     let text = this.setting.text || '';
     let background = this.setting.background;
@@ -56,17 +57,14 @@ class Button extends InputBase {
     if (Tiny.isString(background)) {
       const baseTexture = Tiny.BaseTexture.from(background);
       const texture = new Tiny.Texture(baseTexture);
+
       background = new Tiny.Sprite(texture);
       Tiny.BaseTexture.removeFromCache(baseTexture);
     }
 
-    const backgroundTexture = background.texture;
-    const thisOpacity = this.getOpacity();
-    const thisScaleX = this.getScale().x;
-    const thisScaleY = this.getScale().y;
-
     if (Tiny.isString(activeBackground)) {
       const baseTexture = Tiny.BaseTexture.from(activeBackground);
+
       activeBackgroundTexture = new Tiny.Texture(baseTexture);
       Tiny.BaseTexture.removeFromCache(baseTexture);
     }
@@ -76,68 +74,127 @@ class Button extends InputBase {
     if (Tiny.isString(text)) {
       text = new Tiny.Text(text, this.setting.textStyle);
     }
-    this.addChild(text);
 
-    background.texture.on('update', () => {
-      this.updatePosition();
-      self.emit('rendered');
-    });
+    this.addChild(text);
 
     this.text = text;
     this.background = background;
     this.buttonMode = true;
-    this.updatePosition();
 
-    const leaveHandler = function() {
+    if (background instanceof Tiny.Graphics) {
+      this.updatePosition();
+    } else {
+      background.texture.on('update', () => {
+        this.updatePosition();
+        this.emit('rendered');
+      });
+    }
+
+    this.bindEvent(active, activeBackgroundTexture);
+  }
+
+  bindEvent(active, activeBackgroundTexture) {
+    const { improveScrollExperience } = this.setting;
+    const background = this.background;
+    const backgroundTexture = background.texture;
+    const thisOpacity = this.getOpacity();
+    const thisScaleX = this.getScale().x;
+    const thisScaleY = this.getScale().y;
+    const leaveHandler = () => {
       if (activeBackgroundTexture) {
         background.texture = backgroundTexture;
       }
       if (active.opacity) {
-        self.setOpacity(thisOpacity);
+        this.setOpacity(thisOpacity);
       }
       if (active.scale) {
-        self.setScale(thisScaleX, thisScaleY);
+        this.setScale(thisScaleX, thisScaleY);
       }
     };
-    const clickHandler = function(e) {
-      if (Tiny.isFunction(active.callback)) {
-        active.callback(e);
-      }
-    };
-    // touchdown
-    this.on('pointerdown', function(e) {
+
+    this.on('pointerdown', (e) => {
       if (activeBackgroundTexture) {
         background.texture = activeBackgroundTexture;
       }
       if (active.opacity) {
-        self.setOpacity(active.opacity);
+        this.setOpacity(active.opacity);
       }
       if (active.scale) {
         let scale = active.scale;
+
         if (Tiny.isNumber(scale)) {
           scale = {
             scaleX: scale,
             scaleY: scale,
           };
         }
-        self.setScale(scale.scaleX, scale.scaleY);
+        this.setScale(scale.scaleX, scale.scaleY);
       }
     });
-
-    // touchup
     this.on('pointerup', leaveHandler);
-
-    // touchmove
     this.on('pointermove', function(e) {});
-
-    // touchcancel
     this.on('pointerupoutside', leaveHandler);
 
-    // @version 0.2.1 @2019.01.28 如果是移动端就不绑定 click 事件了，避免 300ms 延迟触发两次
-    if (!Tiny.isMobile.any || !Tiny.config.viewTouched) {
-      this.on('click', clickHandler);
+    if (improveScrollExperience) {
+      let initialX = null;
+      let initialY = null;
+      let lastX = null;
+      let lastY = null;
+      let blockEvent = null;
+      const maxDistance = 20;
+      const reset = () => {
+        lastX = null;
+        lastY = null;
+        initialX = null;
+        initialY = null;
+        blockEvent = null;
+      };
+      const startup = (e) => {
+        const { x, y } = e.data.global;
+
+        initialX = lastX = x;
+        initialY = lastY = y;
+        blockEvent = false;
+      };
+      const relay = throttle((e) => {
+        const { x, y } = e.data.global;
+        const disFromInitial = Math.sqrt((initialX - x) * (initialX - x) + (initialY - y) * (initialY - y));
+        const disFromLast = Math.sqrt((lastX - x) * (lastX - x) + (lastY - y) * (lastY - y));
+
+        lastX = x;
+        lastY = y;
+
+        if ((disFromInitial > maxDistance) || (disFromLast > maxDistance)) {
+          blockEvent = true;
+        }
+      }, 30);
+      const release = (callback) => {
+        if (blockEvent === false) callback();
+        reset();
+      };
+
+      this.on('pointerdown', startup);
+      this.on('pointermove', relay);
+      this.on('pointerupoutside', reset);
+      this.on('pointerup', (e) => {
+        e.data.originalEvent.preventDefault();
+        release(() => {
+          if (Tiny.isFunction(active.callback)) {
+            active.callback(e);
+          }
+        });
+      });
+    } else {
+      const clickHandler = throttle((e) => {
+        e.data.originalEvent.preventDefault();
+
+        if (Tiny.isFunction(active.callback)) {
+          active.callback(e);
+        }
+      }, 500, { trailing: false });
+
+      this.on('pointerup', clickHandler);
     }
-    this.on('tap', clickHandler);
   }
 
   /**
@@ -150,8 +207,11 @@ class Button extends InputBase {
     const width = ~~this.setting.width;
     const height = ~~this.setting.height;
     const textPos = textPosition || this.setting.textPosition;
-    this.background.width = width || this.background.texture.width;
-    this.background.height = height || this.background.texture.height;
+
+    if (!(this.background instanceof Tiny.Graphics)) {
+      this.background.width = width || this.background.texture.width;
+      this.background.height = height || this.background.texture.height;
+    }
 
     const offsetW = this.background.width - this.text.width;
     const offsetH = this.background.height - this.text.height;

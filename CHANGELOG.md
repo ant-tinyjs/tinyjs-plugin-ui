@@ -1,3 +1,10 @@
+## 0.7.0
+
+`2020-12-22`
+
+### Added
+- Button 组件添加 `improveScrollExperience` 参数，在搭配 Scroller 插件时，可以优化滚动时触发点击的体验
+
 ## 0.6.0
 
 `2020-11-02`

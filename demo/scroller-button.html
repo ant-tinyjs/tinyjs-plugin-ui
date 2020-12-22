@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Scroller && Button</title>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="apple-touch-fullscreen"/>
+<meta content="telephone=no,email=no" name="format-detection"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+<style>
+  html, body, p, div {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+</head>
+<body>
+
+<script src="https://gw.alipayobjects.com/os/lib/tinyjs/tiny/1.4.0/tiny.js"></script>
+<script src="https://gw.alipayobjects.com/os/lib/tinyjs-plugin-scroller/0.2.0/dist/index.js"></script>
+<script src="../index.debug.js"></script>
+
+<script type="text/javascript">
+  // 新建 App
+  var app = new Tiny.Application({
+    width: 400,
+    height: 400,
+    dpi: 2,
+    fixSize: true,
+    viewTouched: true,
+    renderOptions: {
+      antialias: true,
+    }
+  });
+  var container = new Tiny.Container();
+  var scroller = new Tiny.Scroller(function(left, top, zoom) {
+    container.position.x = -left;
+  }, {
+    scrollingX: true,
+  });
+
+  for (let i = 0; i < 10; i++) {
+    var cell = new Tiny.Container();
+    var roundRect = new Tiny.Graphics();
+
+    roundRect.lineStyle(2, 0x99CCFF, 1);
+    roundRect.beginFill(0xFF9933);
+    roundRect.drawRoundedRect(0, 0, 160, 72, 20);
+    roundRect.endFill();
+
+    var btn = new Tiny.ui.Button({
+      improveScrollExperience: true,
+      text: '按钮' + i,
+      background: roundRect,
+      textPosition: 5,
+      textStyle: {
+        fontSize: 36,
+        fill: 'white',
+      },
+      active: {
+        opacity: 0.6,
+        callback: function () {
+          console.log('you tap btn' + i);
+        }
+      }
+    });
+
+    btn.setPositionX((btn.width + 20) * i);
+
+    container.addChild(btn);
+  }
+
+  scroller.setDimensions(Tiny.WIN_SIZE.width, Tiny.WIN_SIZE.height, container.width, container.height);
+  container.setPositionY(100);
+  container.interactive = true;
+  container.hitArea = new Tiny.Rectangle(0, 0, container.width, Tiny.WIN_SIZE.height);
+
+  container.on('pointerdown', function(data) {
+    var e = data.data.originalEvent;
+    scroller.doTouchStart(e.changedTouches || [e], e.timeStamp);
+  });
+  container.on('pointermove', function(data) {
+    var e = data.data.originalEvent;
+    scroller.doTouchMove(e.changedTouches || [e], e.timeStamp, e.scale);
+  });
+  container.on('pointerup', function(data) {
+    const e = data.data.originalEvent;
+    scroller.doTouchEnd(e.timeStamp);
+  });
+  container.on('pointerupoutside', function(data) {
+    const e = data.data.originalEvent;
+    scroller.doTouchEnd(e.timeStamp);
+  });
+
+  app.run(container);
+</script>
+</body>
+</html>
