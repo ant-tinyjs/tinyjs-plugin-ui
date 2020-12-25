@@ -81,7 +81,10 @@ class Button extends InputBase {
     this.background = background;
     this.buttonMode = true;
 
-    if (background instanceof Tiny.Graphics) {
+    if (
+      background instanceof Tiny.Graphics ||
+      background.texture.baseTexture.hasLoaded
+    ) {
       this.updatePosition();
     } else {
       background.texture.on('update', () => {

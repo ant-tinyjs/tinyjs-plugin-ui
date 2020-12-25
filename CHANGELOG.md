@@ -1,3 +1,11 @@
+## 0.7.1
+
+`2020-12-25`
+
+### Fixed
+- 修复 loader 后 Button 的 `textPosition` 无效的 bug
+
+
 ## 0.7.0
 
 `2020-12-22`
