@@ -112,7 +112,13 @@ class NinePatch extends UIBase {
     if (this._inited) return;
     this._inited = true;
     for (let i = 0; i < 9; i++) {
-      const t = new Tiny.Texture(this._gridTexture, this._gridTexture._frame, this._gridTexture.orig, null, 0);
+      const t = new Tiny.Texture(
+        this._gridTexture,
+        this._gridTexture.frame,
+        this._gridTexture.orig,
+        null,
+        0
+      );
       this._textures.push(t);
       const child = new Tiny.Sprite(t);
       child.visible = false;
@@ -206,14 +212,16 @@ class NinePatch extends UIBase {
   /**
    * 定位到正确的位置，tileset纹理
    *
-   * @param {*} child
+   * @param {*} index
    * @param {*} x
    * @param {*} y
    * @returns {*}
    */
-  offsetFrame(child, x, y) {
-    const offsetX = child._texture._frame.x + x;
-    const offsetY = child._texture._frame.y + y;
+  offsetFrame(index, x, y) {
+    const frameX = this._textures[index].frame.x || 0;
+    const frameY = this._textures[index].frame.y || 0;
+    const offsetX = frameX + x;
+    const offsetY = frameY + y;
     return [offsetX, offsetY];
   }
 
@@ -257,7 +265,7 @@ class NinePatch extends UIBase {
       for (let col = 0; col < 3; col++) {
         const i = row * 3 + col;
         const child = this._gridSprites[i];
-        const frame = new Tiny.Rectangle(...this.offsetFrame(child, xArr[col], yArr[row]), wArr[col], hArr[row]);
+        const frame = new Tiny.Rectangle(...this.offsetFrame(i, xArr[col], yArr[row]), wArr[col], hArr[row]);
         if (frame.width > 0 && frame.height > 0) {
           const w = (col === 0 || col === 2) ? wArr[col] : Math.max(0, realWidth - wArr[0] - wArr[2]);
           const h = (row === 0 || row === 2) ? hArr[row] : Math.max(0, realHeight - hArr[0] - hArr[2]);
