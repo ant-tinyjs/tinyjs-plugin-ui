@@ -138,6 +138,7 @@ class NinePatch extends UIBase {
     this._debugDraw = value;
     this._update();
   }
+
   /**
    * @name Tiny.ui.NinePatch#scale9Grid
    * @property {string | Array} scale9Grid - 九宫格数据 "30,10,10,5" 或者 [30,10,10,5]
@@ -199,7 +200,6 @@ class NinePatch extends UIBase {
   /**
    * 改变尺寸
    * @private
-   * @method Tiny.ui.NinePatch#resize
    * @param {number} width - 宽度
    * @param {number} height - 高度
    */
@@ -211,11 +211,11 @@ class NinePatch extends UIBase {
 
   /**
    * 定位到正确的位置，tileset纹理
-   *
-   * @param {*} index
-   * @param {*} x
-   * @param {*} y
-   * @returns {*}
+   * @private
+   * @param {number} index
+   * @param {number} x
+   * @param {number} y
+   * @return {number[]}
    */
   offsetFrame(index, x, y) {
     const frameX = this._textures[index].frame.x || 0;
@@ -228,7 +228,6 @@ class NinePatch extends UIBase {
   /**
    * 更新
    * @private
-   * @method Tiny.ui.NinePatch#update
    * @param {number} [width=null]
    * @param {number} [height=null]
    */
