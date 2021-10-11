@@ -79,6 +79,7 @@ class NinePatch extends UIBase {
 
     /**
      * 素材的原始尺寸
+     *
      * @private
      */
     this._textureOrigFrame = new Tiny.Rectangle(0, 0, this._gridTexture.width, this._gridTexture.height);
@@ -229,7 +230,7 @@ class NinePatch extends UIBase {
 
   /**
    * 改变尺寸
-   * @public
+   *
    * @param {number} width - 宽度
    * @param {number} height - 高度
    */
@@ -241,6 +242,7 @@ class NinePatch extends UIBase {
 
   /**
    * 定位到正确的位置，tileset纹理
+   *
    * @private
    * @param {number} index
    * @param {number} x
@@ -257,6 +259,7 @@ class NinePatch extends UIBase {
 
   /**
    * 更新
+   *
    * @private
    * @param {number} [width=null]
    * @param {number} [height=null]
