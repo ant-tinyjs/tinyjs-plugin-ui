@@ -90,6 +90,8 @@ class NinePatch extends UIBase {
      */
     this._scale9Grid = null;
 
+    this._gridData = {};
+
     this._overlapPadding = overlapPadding;
 
     this._inited = false;
@@ -108,6 +110,9 @@ class NinePatch extends UIBase {
     this._update();
   }
 
+  /**
+   * 根据 scale9Grid 初始化9宫格基础 texture 和 sprite
+   */
   _init() {
     if (this._inited) return;
     this._inited = true;
@@ -124,6 +129,31 @@ class NinePatch extends UIBase {
       child.visible = false;
       this._gridSprites.push(child);
       this.addChild(child);
+    }
+    // 初始化九宫格每个 sprite
+    const scale9Grid = this._scale9Grid;
+    const w1 = scale9Grid[0];
+    const w2 = Math.max(0, scale9Grid[2]);
+    const w3 = Math.max(0, this._gridTexture.width - w1 - w2);
+
+    const h1 = scale9Grid[1];
+    const h2 = Math.max(0, scale9Grid[3]);
+    const h3 = Math.max(0, this._gridTexture.height - h1 - h2);
+
+    const wArr = [w1, w2, w3];
+    const xArr = [0, w1, w1 + w2];
+
+    const hArr = [h1, h2, h3];
+    const yArr = [0, h1, h1 + h2];
+
+    this._gridData = { wArr, xArr, hArr, yArr };
+
+    for (let row = 0; row < 3; row++) {
+      for (let col = 0; col < 3; col++) {
+        const i = row * 3 + col;
+        const frame = new Tiny.Rectangle(...this._offsetFrame(i, xArr[col], yArr[row]), wArr[col], hArr[row]);
+        this._textures[i].frame = frame;
+      }
     }
   }
 
@@ -199,14 +229,14 @@ class NinePatch extends UIBase {
 
   /**
    * 改变尺寸
-   * @private
+   * @public
    * @param {number} width - 宽度
    * @param {number} height - 高度
    */
   resize(width, height) {
     this._targetWidth = width;
     this._targetHeight = height;
-    this._update(width, height);
+    this._update();
   }
 
   /**
@@ -217,7 +247,7 @@ class NinePatch extends UIBase {
    * @param {number} y
    * @return {number[]}
    */
-  offsetFrame(index, x, y) {
+  _offsetFrame(index, x, y) {
     const frameX = this._textures[index].frame.x || 0;
     const frameY = this._textures[index].frame.y || 0;
     const offsetX = frameX + x;
@@ -243,45 +273,25 @@ class NinePatch extends UIBase {
 
     const realWidth = Math.max(this.width, this._gridTexture.width);
     const realHeight = Math.max(this.height, this._gridTexture.height);
-
-    const scale9Grid = this._scale9Grid;
-    const w1 = scale9Grid[0];
-    const w2 = Math.max(0, scale9Grid[2]);
-    const w3 = Math.max(0, this._gridTexture.width - w1 - w2);
-
-    const h1 = scale9Grid[1];
-    const h2 = Math.max(0, scale9Grid[3]);
-    const h3 = Math.max(0, this._gridTexture.height - h1 - h2);
-
-    const wArr = [w1, w2, w3];
-    const xArr = [0, w1, w1 + w2];
-
-    const hArr = [h1, h2, h3];
-    const yArr = [0, h1, h1 + h2];
-
+    const { wArr, hArr } = this._gridData;
     const overlapPadding = this.overlapPadding;
+
     for (let row = 0; row < 3; row++) {
       for (let col = 0; col < 3; col++) {
         const i = row * 3 + col;
         const child = this._gridSprites[i];
-        const frame = new Tiny.Rectangle(...this.offsetFrame(i, xArr[col], yArr[row]), wArr[col], hArr[row]);
-        if (frame.width > 0 && frame.height > 0) {
-          const w = (col === 0 || col === 2) ? wArr[col] : Math.max(0, realWidth - wArr[0] - wArr[2]);
-          const h = (row === 0 || row === 2) ? hArr[row] : Math.max(0, realHeight - hArr[0] - hArr[2]);
-          const x = col === 0 ? 0 : col === 1 ? wArr[0] : Math.max(0, realWidth - wArr[2]);
-          const y = row === 0 ? 0 : row === 1 ? hArr[0] : Math.max(0, realHeight - hArr[2]);
-          if (w > 0 && h > 0) {
-            this._textures[i].frame = frame;
-            child.anchor.set(0, 0);
-            child.x = x - col * overlapPadding;
-            child.y = y - row * overlapPadding;
-            child.alpha = this._debugDraw ? (0.1 + i * 0.05) : 1;
-            child.width = w;
-            child.height = h;
-            child.visible = true;
-          } else {
-            child.visible = false;
-          }
+        const w = (col === 0 || col === 2) ? wArr[col] : Math.max(0, realWidth - wArr[0] - wArr[2]);
+        const h = (row === 0 || row === 2) ? hArr[row] : Math.max(0, realHeight - hArr[0] - hArr[2]);
+        const x = col === 0 ? 0 : col === 1 ? wArr[0] : Math.max(0, realWidth - wArr[2]);
+        const y = row === 0 ? 0 : row === 1 ? hArr[0] : Math.max(0, realHeight - hArr[2]);
+        if (w > 0 && h > 0) {
+          child.anchor.set(0, 0);
+          child.x = x - col * overlapPadding;
+          child.y = y - row * overlapPadding;
+          child.alpha = this._debugDraw ? (0.1 + i * 0.05) : 1;
+          child.width = w;
+          child.height = h;
+          child.visible = true;
         } else {
           child.visible = false;
         }
