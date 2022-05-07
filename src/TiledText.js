@@ -79,7 +79,13 @@ class TiledText {
 
   _update() {
     this.sprites.forEach(sprite => {
-      sprite.texture.updateUvs();
+      const texture = sprite.texture;
+      // updateUvs 兼容 Tiny1 和 Tiny2
+      if (texture._updateUvs) {
+        texture._updateUvs();
+      } else {
+        texture.updateUvs();
+      }
     });
   }
 
