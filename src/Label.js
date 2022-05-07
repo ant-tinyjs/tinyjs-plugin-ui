@@ -36,10 +36,10 @@ class Label extends InputBase {
 
     this.settings = Object.assign({}, this.defaultSetting, options || {});
 
-    this.render();
+    this.__render();
   }
 
-  render() {
+  __render() {
     const {
       text,
       width,

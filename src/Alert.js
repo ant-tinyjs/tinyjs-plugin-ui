@@ -30,7 +30,7 @@ class Alert extends InputBase {
     this.buttonText = buttonText || '关闭';
 
     //constant
-    this.DPI = Tiny.config.dpi;
+    this.DPI = Tiny.config.dpi || 2;
     this.PADDING = 40 * this.DPI;
     this.CONTENT_FONTSIZE = 16 * this.DPI;
     this.BTN_FONTSIZE = 14 * this.DPI;
@@ -38,7 +38,7 @@ class Alert extends InputBase {
     this.MAX_WIDTH = Tiny.WIN_SIZE.width * 0.8;
   }
 
-  render(text) {
+  __render(text) {
     this.removeChildren(0, this.children.length);
     //渲染label
     this.label = this.drawLabel(text);
@@ -121,7 +121,7 @@ class Alert extends InputBase {
   alert(text, callback) {
     if (this.stage) {
       this.stage.removeChild(this);
-      this.render(text);
+      this.__render(text);
       this.stage.addChild(this);
       this.callback = callback;
     }

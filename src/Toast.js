@@ -27,7 +27,7 @@ class Toast extends InputBase {
     this.autoHideTime = autoHideTime || 2000;
 
     //constant
-    this.DPI = Tiny.config.dpi;
+    this.DPI = Tiny.config.dpi || 2;
     this.PADDING = 20 * this.DPI;
     this.CONTENT_FONTSIZE = 16 * this.DPI;
     this.MIN_HEIGHT = 20 * this.DPI;
@@ -43,7 +43,7 @@ class Toast extends InputBase {
     });
   };
 
-  render(text) {
+  __render(text) {
     this.removeChildren(0, this.children.length);
     //渲染label
     this.label = this.drawLabel(text);
@@ -107,7 +107,7 @@ class Toast extends InputBase {
   show(text) {
     if (this.stage) {
       this.stage.removeChild(this);
-      this.render(text);
+      this.__render(text);
       this.stage.addChild(this);
 
       const cd = new Tiny.ticker.CountDown({
