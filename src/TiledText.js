@@ -79,7 +79,7 @@ class TiledText {
 
   _update() {
     this.sprites.forEach(sprite => {
-      sprite.texture._updateUvs();
+      sprite.texture.updateUvs();
     });
   }
 
